@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
+use App\Controllers\AccountsController;
 use App\Controllers\AuthController;
 use App\Controllers\DashboardController;
 use App\Controllers\HomeController;
 use App\Controllers\MembersController;
 use App\Controllers\SettingsController;
+use App\Controllers\TransactionsController;
 use App\Support\Router;
 
 /**
@@ -25,6 +27,22 @@ return static function (Router $router): void {
 
     // Panell
     $router->get('/dashboard', [DashboardController::class, 'index']);
+
+    // Comptes
+    $router->get('/accounts', [AccountsController::class, 'index']);
+    $router->post('/accounts', [AccountsController::class, 'store']);
+    $router->get('/accounts/{id}/edit', [AccountsController::class, 'edit']);
+    $router->post('/accounts/{id}/edit', [AccountsController::class, 'update']);
+    $router->post('/accounts/{id}/archive', [AccountsController::class, 'archive']);
+    $router->post('/accounts/{id}/delete', [AccountsController::class, 'delete']);
+
+    // Moviments
+    $router->get('/transactions', [TransactionsController::class, 'index']);
+    $router->post('/transactions', [TransactionsController::class, 'store']);
+    $router->post('/transfers', [TransactionsController::class, 'transfer']);
+    $router->get('/transactions/{id}/edit', [TransactionsController::class, 'edit']);
+    $router->post('/transactions/{id}/edit', [TransactionsController::class, 'update']);
+    $router->post('/transactions/{id}/delete', [TransactionsController::class, 'delete']);
 
     // Membres (owner)
     $router->get('/members', [MembersController::class, 'index']);

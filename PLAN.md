@@ -28,8 +28,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 3 — Auth + llar multi-usuari + panell 🔄
-**Objectiu:** accés segur i gestió de la llar. *(Implementada; pendent de validació.)*
+## Fase 3 — Auth + llar multi-usuari + panell ✅
+**Objectiu:** accés segur i gestió de la llar.
 - Login, sessions segures, límit d'intents; **2FA TOTP opcional**.
 - Rols owner/member; alta/gestió de membres per l'owner.
 - Panell base + `settings` + `audit_log`.
@@ -38,8 +38,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 4 — Comptes + transaccions ⬜
-**Objectiu:** nucli financer manual.
+## Fase 4 — Comptes + transaccions 🔄
+**Objectiu:** nucli financer manual. *(Implementada; pendent de validació.)*
 - CRUD de comptes (tipus, divisa, propietari/membre, arxivat), saldo recalculat.
 - CRUD de transaccions, traspassos (`transfer_group_id`), filtres (dates/categoria/compte/membre/text/import), notes/etiquetes.
 - Vista de patrimoni net de la llar.

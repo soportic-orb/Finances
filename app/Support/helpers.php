@@ -97,6 +97,56 @@ if (!function_exists('flash')) {
     }
 }
 
+if (!function_exists('money')) {
+    /** Formata un import en estil local (1.234,56 €). */
+    function money(float|string $amount, string $currency = 'EUR'): string
+    {
+        return number_format((float) $amount, 2, ',', '.') . ' ' . $currency;
+    }
+}
+
+if (!function_exists('to_amount')) {
+    /**
+     * Converteix una entrada de l'usuari a float, tolerant amb formats ca/es i
+     * internacional: "1.234,56", "1234.56", "1.234.567,89", "3.500" (→ 3500).
+     */
+    function to_amount(string $input): float
+    {
+        $s = trim($input);
+        $s = preg_replace('/[^\d,.\-]/', '', $s) ?? '';
+
+        if (str_contains($s, ',') && str_contains($s, '.')) {
+            // L'últim separador que apareix és el decimal.
+            if (strrpos($s, ',') > strrpos($s, '.')) {
+                $s = str_replace('.', '', $s);      // punts = milers
+                $s = str_replace(',', '.', $s);     // coma = decimal
+            } else {
+                $s = str_replace(',', '', $s);      // comes = milers
+            }
+        } elseif (str_contains($s, ',')) {
+            $s = str_replace(',', '.', $s);         // coma decimal (ca/es)
+        } else {
+            // Només punts: més d'un → milers; un de sol seguit de 3 dígits → milers.
+            $dots = substr_count($s, '.');
+            if ($dots > 1 || ($dots === 1 && preg_match('/\.\d{3}$/', $s))) {
+                $s = str_replace('.', '', $s);
+            }
+        }
+
+        return round((float) $s, 2);
+    }
+}
+
+if (!function_exists('uuid4')) {
+    function uuid4(): string
+    {
+        $d = random_bytes(16);
+        $d[6] = chr((ord($d[6]) & 0x0f) | 0x40);
+        $d[8] = chr((ord($d[8]) & 0x3f) | 0x80);
+        return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($d), 4));
+    }
+}
+
 if (!function_exists('app_version')) {
     function app_version(): string
     {

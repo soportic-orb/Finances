@@ -188,6 +188,32 @@ input, select {
 }
 .codeblock--sm { font-size: .8rem; letter-spacing: 0; }
 
+/* Capçalera de pàgina amb total */
+.pagehead {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem;
+}
+.pagehead .card__title { margin: 0; }
+.networth { text-align: right; display: flex; flex-direction: column; }
+.networth strong { font-size: 1.3rem; }
+.pos { color: var(--ok); }
+.neg { color: #f87171; }
+
+/* Filtres */
+.filters { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin: 0; }
+.filters select, .filters input {
+    width: auto; flex: 1 1 130px; margin: 0;
+}
+.filters .btn { margin: 0; }
+
+/* Accions de fila */
+.rowactions { display: flex; gap: .6rem; align-items: center; white-space: nowrap; }
+.rowactions form { display: inline; margin: 0; }
+
+/* Paginació */
+.pagination { display: flex; align-items: center; gap: 1rem; margin-top: 1rem; }
+.pagination .btn { margin: 0; }
+
 /* Pantalla d'autenticació */
 body.auth {
     display: flex; align-items: center; justify-content: center; min-height: 100vh;
