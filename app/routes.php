@@ -8,6 +8,7 @@ use App\Controllers\BankingController;
 use App\Controllers\CategoriesController;
 use App\Controllers\DashboardController;
 use App\Controllers\HomeController;
+use App\Controllers\ImportController;
 use App\Controllers\MembersController;
 use App\Controllers\RulesController;
 use App\Controllers\SettingsController;
@@ -66,6 +67,13 @@ return static function (Router $router): void {
     $router->get('/rules/{id}/edit', [RulesController::class, 'edit']);
     $router->post('/rules/{id}/edit', [RulesController::class, 'update']);
     $router->post('/rules/{id}/delete', [RulesController::class, 'delete']);
+
+    // Importació de fitxers
+    $router->get('/import', [ImportController::class, 'index']);
+    $router->post('/import/norma43', [ImportController::class, 'previewNorma43']);
+    $router->post('/import/csv', [ImportController::class, 'previewCsv']);
+    $router->post('/import/confirm', [ImportController::class, 'confirm']);
+    $router->post('/import/templates/{id}/delete', [ImportController::class, 'deleteTemplate']);
 
     // Enable Banking
     $router->get('/banking', [BankingController::class, 'index']);

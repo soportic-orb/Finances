@@ -133,6 +133,22 @@ final class Transaction
         return (bool) $row;
     }
 
+    /**
+     * Deduplicació d'importació (cross-source): mateix compte, data i import.
+     * Permet detectar moviments ja entrats per Enable Banking encara que la
+     * descripció difereixi.
+     */
+    public static function existsSimilar(int $accountId, string $date, float $amount): bool
+    {
+        $row = DB::run(
+            'SELECT id FROM transactions
+             WHERE account_id = ? AND occurred_on = ? AND ABS(amount - CAST(? AS DECIMAL(14,2))) < 0.005
+             LIMIT 1',
+            [$accountId, $date, $amount]
+        )->fetch();
+        return (bool) $row;
+    }
+
     private static function dedupHash(int $accountId, string $date, float $amount, ?string $desc): string
     {
         $norm = mb_strtolower(trim((string) $desc));

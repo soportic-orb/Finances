@@ -60,8 +60,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 6 — Categories + regles 🔄
-**Objectiu:** classificació determinista. *(Implementada; pendent de validació.)*
+## Fase 6 — Categories + regles ✅
+**Objectiu:** classificació determinista.
 - Categories jeràrquiques editables; `rules` (conté/regex/exacte) per descripció/comerç/contrapart/import, amb prioritat.
 - Aplicació de regles en ingesta i sota demanda; recategorització massiva.
 
@@ -69,8 +69,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 7 — Importació de fitxers ⬜
-**Objectiu:** històric i bancs no coberts.
+## Fase 7 — Importació de fitxers 🔄
+**Objectiu:** històric i bancs no coberts. *(Implementada; pendent de validació.)*
 - Parser **Norma 43 (Quadern 43 AEB/CSB)** prioritari.
 - **CSV** amb mapatge de columnes configurable, desat com a plantilla per banc; previsualització + dedup.
 - (Opcional) OFX/QIF.
