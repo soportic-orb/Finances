@@ -7,8 +7,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 1 — Bastida ⬜
-**Objectiu:** esquelet tècnic funcional.
+## Fase 1 — Bastida 🔄
+**Objectiu:** esquelet tècnic funcional. *(Implementada; pendent de validació.)*
 - Estructura MVC (router, controllers, models, views), capa `Support` (DB/PDO, Csrf, Crypto, Auth, Validator).
 - Sistema de migracions versionades + `VERSION` (semver).
 - Layout base Tailwind + Alpine, assets locals.
