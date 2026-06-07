@@ -139,6 +139,35 @@ switch ($step) {
         ], 3);
         break;
 
+    case 'import':
+        if (empty($_SESSION['install_db'])) {
+            header('Location: ?step=2');
+            exit;
+        }
+        if ($isPost) {
+            $pass = (string) ($_POST['passphrase'] ?? '');
+            if (empty($_FILES['bundle']['tmp_name']) || !is_uploaded_file($_FILES['bundle']['tmp_name'])) {
+                render('setup', ['csrf' => Csrf::field(), 'old' => [], 'error' => 'Cal seleccionar un paquet .fin.'], 3);
+            }
+            $tmpFile = sys_get_temp_dir() . '/instimport_' . bin2hex(random_bytes(6)) . '.fin';
+            move_uploaded_file($_FILES['bundle']['tmp_name'], $tmpFile);
+            try {
+                $installer->importMigration($_SESSION['install_db'], $tmpFile, $pass);
+                unset($_SESSION['install_db']);
+                @unlink($tmpFile);
+                render('done', ['appUrl' => '/'], 4);
+            } catch (\Throwable $e) {
+                @unlink($tmpFile);
+                render('setup', [
+                    'csrf'  => Csrf::field(),
+                    'old'   => [],
+                    'error' => 'Error en importar: ' . $e->getMessage(),
+                ], 3);
+            }
+        }
+        header('Location: ?step=3');
+        exit;
+
     default:
         header('Location: ?step=1');
         exit;

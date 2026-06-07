@@ -131,6 +131,8 @@ return static function (Router $router): void {
     $router->post('/update/check', [UpdateController::class, 'check']);
     $router->post('/update/run', [UpdateController::class, 'run']);
     $router->post('/update/backup', [UpdateController::class, 'backup']);
+    $router->post('/update/export', [UpdateController::class, 'export']);
+    $router->post('/update/import', [UpdateController::class, 'import']);
 
     // Configuració
     $router->get('/settings', [SettingsController::class, 'index']);

@@ -109,8 +109,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 11 — Actualitzacions OTA via Git 🔄
-**Objectiu:** autoactualització segura (com SysRevAI). *(Implementada; pendent de validació.)*
+## Fase 11 — Actualitzacions OTA via Git ✅
+**Objectiu:** autoactualització segura (com SysRevAI).
 - `UpdateService` + `bin/update.php`: manteniment → backup BD i `/config` (inclou keys) → `git fetch`/`reset` → composer → migracions → assets → **rollback automàtic**.
 - Botó al panell + cron.
 
@@ -118,8 +118,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 12 — Migració de servidor ⬜
-**Objectiu:** portabilitat.
+## Fase 12 — Migració de servidor 🔄
+**Objectiu:** portabilitat. *(Implementada; pendent de validació.)*
 - Export BD + fitxers (inclou `/config/keys`) en **ZIP xifrat** amb manifest + checksums; import des de l'instal·lador.
 
 **Acceptació:** export en un servidor i import net en un altre reprodueix la instància (comptes, vincles EB, settings).

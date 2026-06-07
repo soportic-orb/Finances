@@ -35,8 +35,15 @@ final class BackupService
     /** Bolca tota la BD a un fitxer .sql i retorna la ruta. */
     public function backupDatabase(): string
     {
-        $pdo = DB::connection();
         $file = $this->backupDir . '/db-' . date('Ymd-His') . '.sql';
+        $this->dumpDatabase($file);
+        return $file;
+    }
+
+    /** Bolca tota la BD a la ruta indicada (PHP pur, sense mysqldump). */
+    public function dumpDatabase(string $file): void
+    {
+        $pdo = DB::connection();
         $fh = fopen($file, 'w');
         if ($fh === false) {
             throw new \RuntimeException('No s\'ha pogut crear el fitxer de backup de BD.');
@@ -60,7 +67,6 @@ final class BackupService
         }
         fwrite($fh, "\nSET FOREIGN_KEY_CHECKS=1;\n");
         fclose($fh);
-        return $file;
     }
 
     /** Restaura la BD a partir d'un fitxer .sql. */

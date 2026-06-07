@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Services\MigrationService;
 use App\Support\Config;
 use App\Support\Crypto;
 use App\Support\DB;
@@ -215,6 +216,33 @@ final class Installer
         foreach (['locale' => $app['locale'], 'currency' => $app['currency']] as $key => $value) {
             $stmt->execute([$householdId, $key, $value]);
         }
+    }
+
+    /**
+     * Instal·lació per restauració d'un paquet de migració d'un altre servidor.
+     * @param array<string,mixed> $db  credencials de la BD del servidor nou
+     */
+    public function importMigration(array $db, string $bundleFile, string $passphrase): void
+    {
+        // 1) Config amb les credencials NOVES i una APP_KEY temporal.
+        $this->writeConfig($db, [
+            'url'      => '',
+            'locale'   => 'ca',
+            'timezone' => 'Europe/Madrid',
+        ]);
+        Config::load();
+        DB::reset();
+
+        // 2) Importa: restaura BD + claus i fixa l'APP_KEY del paquet al config.
+        (new MigrationService())->import($bundleFile, $passphrase);
+
+        // 3) Recarrega config amb l'APP_KEY importada i aplica migracions pendents.
+        Config::load();
+        DB::reset();
+        (new Migrator())->migrate();
+
+        // 4) Bloqueja l'instal·lador.
+        $this->lock();
     }
 
     public function lock(): void

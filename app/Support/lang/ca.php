@@ -473,4 +473,18 @@ return [
     'upd.no_log'        => 'Encara no hi ha registre.',
     'upd.no_backups'    => 'Encara no hi ha backups.',
     'upd.safe_note'     => 'Segur per a hosting compartit: backup previ, rollback automàtic i mai esborra /config/keys.',
+
+    // Migració de servidor
+    'mig.title'         => 'Migració de servidor',
+    'mig.note'          => 'Exporta tota la instància (BD + claus + APP_KEY) en un paquet xifrat amb passphrase, i reimporta-la en un altre servidor o des de l\'instal·lador.',
+    'mig.passphrase'    => 'Passphrase (mín. 8 caràcters)',
+    'mig.export'        => 'Exporta paquet xifrat',
+    'mig.bundle'        => 'Paquet de migració (.fin)',
+    'mig.import'        => 'Importa i restaura',
+    'mig.import_confirm' => 'Importar sobreescriurà les dades actuals amb les del paquet. Continuar?',
+    'mig.import_done'   => 'Migració importada (versió :v).',
+    'mig.no_file'       => 'Cal seleccionar un paquet de migració.',
+    'mig.restore_title' => 'Restaura des d\'un paquet de migració',
+    'mig.restore_help'  => 'Si vens d\'un altre servidor, puja aquí el paquet .fin per restaurar-ho tot.',
+    'mig.restore_btn'   => 'Restaura la instància',
 ];

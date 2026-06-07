@@ -55,6 +55,28 @@
 </div>
 
 <section class="card" style="margin-top:1rem">
+    <h2 class="card__subtitle"><?= e(__('mig.title')) ?></h2>
+    <p class="muted" style="font-size:.85rem"><?= e(__('mig.note')) ?></p>
+    <div class="grid2">
+        <form method="post" action="<?= e(url('/update/export')) ?>">
+            <?= csrf_field() ?>
+            <label><?= e(__('mig.passphrase')) ?></label>
+            <input type="password" name="passphrase" required minlength="8">
+            <button class="btn" type="submit"><?= e(__('mig.export')) ?></button>
+        </form>
+        <form method="post" action="<?= e(url('/update/import')) ?>" enctype="multipart/form-data"
+              onsubmit="return confirm('<?= e(__('mig.import_confirm')) ?>')">
+            <?= csrf_field() ?>
+            <label><?= e(__('mig.bundle')) ?></label>
+            <input type="file" name="bundle" accept=".fin" required>
+            <label><?= e(__('mig.passphrase')) ?></label>
+            <input type="password" name="passphrase" required>
+            <button class="btn btn--ghost" type="submit"><?= e(__('mig.import')) ?></button>
+        </form>
+    </div>
+</section>
+
+<section class="card" style="margin-top:1rem">
     <h2 class="card__subtitle"><?= e(__('upd.log')) ?></h2>
     <?php if ($log === []): ?>
         <p class="muted"><?= e(__('upd.no_log')) ?></p>

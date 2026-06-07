@@ -469,4 +469,18 @@ return [
     'upd.no_log'        => 'Aún no hay registro.',
     'upd.no_backups'    => 'Aún no hay backups.',
     'upd.safe_note'     => 'Seguro para hosting compartido: backup previo, rollback automático y nunca borra /config/keys.',
+
+    // Migración de servidor
+    'mig.title'         => 'Migración de servidor',
+    'mig.note'          => 'Exporta toda la instancia (BD + claves + APP_KEY) en un paquete cifrado con passphrase, y reimpórtala en otro servidor o desde el instalador.',
+    'mig.passphrase'    => 'Passphrase (mín. 8 caracteres)',
+    'mig.export'        => 'Exportar paquete cifrado',
+    'mig.bundle'        => 'Paquete de migración (.fin)',
+    'mig.import'        => 'Importar y restaurar',
+    'mig.import_confirm' => 'Importar sobrescribirá los datos actuales con los del paquete. ¿Continuar?',
+    'mig.import_done'   => 'Migración importada (versión :v).',
+    'mig.no_file'       => 'Hay que seleccionar un paquete de migración.',
+    'mig.restore_title' => 'Restaurar desde un paquete de migración',
+    'mig.restore_help'  => 'Si vienes de otro servidor, sube aquí el paquete .fin para restaurarlo todo.',
+    'mig.restore_btn'   => 'Restaurar la instancia',
 ];

@@ -63,3 +63,18 @@ $currency = $old['currency'] ?? 'EUR';
 
     <button class="btn" type="submit">Instal·la</button>
 </form>
+
+<hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
+
+<details>
+    <summary class="muted">Restaura des d'un paquet de migració d'un altre servidor</summary>
+    <p class="muted">Puja el paquet <code>.fin</code> per restaurar tota la instància (BD, claus i APP_KEY).</p>
+    <form method="post" action="?step=import" enctype="multipart/form-data">
+        <?= $csrf ?>
+        <label>Paquet de migració (.fin)</label>
+        <input type="file" name="bundle" accept=".fin" required>
+        <label>Passphrase</label>
+        <input type="password" name="passphrase" required>
+        <button class="btn btn--ghost" type="submit">Restaura la instància</button>
+    </form>
+</details>
