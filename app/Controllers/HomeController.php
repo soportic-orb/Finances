@@ -4,18 +4,14 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Support\Config;
-use App\Support\View;
+use App\Support\Auth;
 
 final class HomeController
 {
-    /** Ruta de prova de la bastida. */
+    /** Arrel: redirigeix al tauler o al login segons la sessió. */
     public function index(): void
     {
-        View::render('home', [
-            'version'   => app_version(),
-            'installed' => Config::isInstalled(),
-        ], 'layout');
+        redirect(Auth::check() ? '/dashboard' : '/login');
     }
 
     /** Endpoint de salut (JSON), útil per a monitoratge i cron. */

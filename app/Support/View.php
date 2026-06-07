@@ -12,13 +12,13 @@ use RuntimeException;
 final class View
 {
     /** @param array<string,mixed> $data */
-    public static function render(string $template, array $data = [], ?string $layout = 'layout'): void
+    public static function render(string $template, array $data = [], ?string $layout = 'layouts/app'): void
     {
         echo self::capture($template, $data, $layout);
     }
 
     /** @param array<string,mixed> $data */
-    public static function capture(string $template, array $data = [], ?string $layout = 'layout'): string
+    public static function capture(string $template, array $data = [], ?string $layout = 'layouts/app'): string
     {
         $content = self::renderFile($template, $data);
         if ($layout !== null) {

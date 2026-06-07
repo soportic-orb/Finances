@@ -83,7 +83,7 @@ final class Kernel
                 echo '<pre>' . e((string) $e) . '</pre>';
                 return;
             }
-            View::render('errors/500', [], 'layout');
+            View::render('errors/500', [], 'layouts/app');
         });
 
         set_error_handler(static function (int $severity, string $message, string $file, int $line): bool {

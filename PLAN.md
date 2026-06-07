@@ -18,8 +18,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 2 — Instal·lador web 🔄
-**Objectiu:** instal·lació guiada i aïllada. *(Implementada; pendent de validació.)*
+## Fase 2 — Instal·lador web ✅
+**Objectiu:** instal·lació guiada i aïllada.
 - Passos: requisits → BD + prova → migracions/seeds → llar + propietari → dades bàsiques (moneda, zona, idioma=ca) → generació `config.php`/`APP_KEY` → finalització.
 - Seeds de categories per defecte en català.
 - Bloqueig/eliminació de `/install` en acabar.
@@ -28,8 +28,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 3 — Auth + llar multi-usuari + panell ⬜
-**Objectiu:** accés segur i gestió de la llar.
+## Fase 3 — Auth + llar multi-usuari + panell 🔄
+**Objectiu:** accés segur i gestió de la llar. *(Implementada; pendent de validació.)*
 - Login, sessions segures, límit d'intents; **2FA TOTP opcional**.
 - Rols owner/member; alta/gestió de membres per l'owner.
 - Panell base + `settings` + `audit_log`.

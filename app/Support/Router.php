@@ -49,7 +49,7 @@ final class Router
         }
 
         http_response_code(404);
-        View::render('errors/404', [], 'layout');
+        View::render('errors/404', [], 'layouts/app');
     }
 
     /** @return array<string,string>|null */

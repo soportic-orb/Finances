@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace App\Support;
 
 /**
- * Helpers de sessió i autenticació.
- *
- * Fase 1: esquelet (estat de sessió, hashing). El login, els rols owner/member,
- * el límit d'intents i el 2FA TOTP s'implementen a la Fase 3.
+ * Estat de sessió i autenticació.
  */
 final class Auth
 {
@@ -22,10 +19,42 @@ final class Auth
         return isset($_SESSION['user_id']) ? (int) $_SESSION['user_id'] : null;
     }
 
+    public static function householdId(): ?int
+    {
+        return isset($_SESSION['household_id']) ? (int) $_SESSION['household_id'] : null;
+    }
+
+    public static function role(): ?string
+    {
+        return $_SESSION['role'] ?? null;
+    }
+
+    public static function isOwner(): bool
+    {
+        return self::role() === 'owner';
+    }
+
     /** @return array<string,mixed>|null */
     public static function user(): ?array
     {
         return $_SESSION['user'] ?? null;
+    }
+
+    /** Inicia la sessió autenticada (amb regeneració d'ID anti-fixació). */
+    public static function login(array $user): void
+    {
+        session_regenerate_id(true);
+        $_SESSION['user_id']      = (int) $user['id'];
+        $_SESSION['household_id'] = (int) $user['household_id'];
+        $_SESSION['role']         = $user['role'];
+        $_SESSION['user'] = [
+            'id'           => (int) $user['id'],
+            'name'         => $user['name'],
+            'email'        => $user['email'],
+            'role'         => $user['role'],
+            'household_id' => (int) $user['household_id'],
+        ];
+        unset($_SESSION['pending_2fa_user_id']);
     }
 
     public static function hash(string $password): string
