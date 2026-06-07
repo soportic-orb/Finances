@@ -8,11 +8,13 @@ use App\Controllers\BankingController;
 use App\Controllers\BudgetsController;
 use App\Controllers\CategoriesController;
 use App\Controllers\DashboardController;
+use App\Controllers\ExportController;
 use App\Controllers\GoalsController;
 use App\Controllers\HomeController;
 use App\Controllers\ImportController;
 use App\Controllers\MembersController;
 use App\Controllers\RecurringController;
+use App\Controllers\ReportsController;
 use App\Controllers\RulesController;
 use App\Controllers\SettingsController;
 use App\Controllers\TransactionsController;
@@ -88,6 +90,12 @@ return static function (Router $router): void {
     $router->get('/recurring', [RecurringController::class, 'index']);
     $router->post('/recurring/detect', [RecurringController::class, 'detect']);
     $router->post('/recurring/{id}/delete', [RecurringController::class, 'delete']);
+
+    // Informes i exportació
+    $router->get('/reports/monthly', [ReportsController::class, 'monthly']);
+    $router->get('/reports/monthly.pdf', [ReportsController::class, 'pdf']);
+    $router->get('/export/transactions.csv', [ExportController::class, 'csv']);
+    $router->get('/export/transactions.xls', [ExportController::class, 'xls']);
 
     // Importació de fitxers
     $router->get('/import', [ImportController::class, 'index']);

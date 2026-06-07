@@ -34,6 +34,7 @@ return [
     'nav.rules'         => 'Regles',
     'nav.import'        => 'Importa',
     'nav.planning'      => 'Planificació',
+    'nav.reports'       => 'Informes',
     'nav.logout'        => 'Surt',
 
     'role.owner'        => 'Propietari',
@@ -355,4 +356,31 @@ return [
     'rec.detected'   => 'Detecció completada: :n patrons.',
     'rec.deleted'    => 'Element eliminat.',
     'rec.delete'     => 'Elimina',
+
+    // Dashboard i informes
+    'dash.income'        => 'Ingressos',
+    'dash.expense'       => 'Despeses',
+    'dash.net'           => 'Estalvi net',
+    'dash.savings_rate'  => 'Taxa d\'estalvi',
+    'dash.this_month'    => 'Aquest mes',
+    'dash.by_category'   => 'Despesa per categoria',
+    'dash.by_member'     => 'Despesa per membre',
+    'dash.evolution'     => 'Evolució mensual',
+    'dash.networth_time' => 'Patrimoni net en el temps',
+    'dash.no_data'       => 'Sense dades per a aquest període.',
+    'dash.legend_income' => 'Ingressos',
+    'dash.legend_expense' => 'Despeses',
+
+    'rep.title'        => 'Informe mensual',
+    'rep.period'       => 'Període',
+    'rep.view'         => 'Veure',
+    'rep.download_pdf' => 'Descarrega PDF',
+    'rep.print'        => 'Imprimeix',
+    'rep.top_categories' => 'Categories principals',
+    'rep.generated'    => 'Generat el',
+    'rep.household'    => 'Llar',
+
+    'export.title'     => 'Exporta',
+    'export.csv'       => 'Exporta CSV',
+    'export.xls'       => 'Exporta Excel',
 ];

@@ -66,7 +66,7 @@ final class Transaction
     public static function query(int $householdId, array $filters, int $limit = 50, int $offset = 0): array
     {
         [$where, $params] = self::buildWhere($householdId, $filters);
-        $limit = max(1, min(200, $limit));
+        $limit = max(1, min(100000, $limit));
         $offset = max(0, $offset);
 
         $sql = "SELECT t.*, a.name AS account_name, a.currency AS account_currency,
@@ -79,6 +79,16 @@ final class Transaction
                 ORDER BY t.occurred_on DESC, t.id DESC
                 LIMIT $limit OFFSET $offset";
         return DB::run($sql, $params)->fetchAll();
+    }
+
+    /**
+     * Totes les files que compleixen els filtres (per a exportació, sense paginar).
+     * @param array<string,mixed> $filters
+     * @return array<int,array<string,mixed>>
+     */
+    public static function allForExport(int $householdId, array $filters, int $cap = 100000): array
+    {
+        return self::query($householdId, $filters, $cap, 0);
     }
 
     /** @param array<string,mixed> $filters */

@@ -79,8 +79,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 8 — Pressupostos + objectius + recurrents 🔄
-**Objectiu:** eines de control i estalvi. *(Implementada; pendent de validació.)*
+## Fase 8 — Pressupostos + objectius + recurrents ✅
+**Objectiu:** eines de control i estalvi.
 - Pressupostos per categoria/període amb alertes (80%/100%) i rollover.
 - Objectius d'estalvi amb progrés i quota mensual estimada.
 - Detecció de recurrents/subscripcions + alerta d'inactives.
@@ -89,8 +89,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 9 — Dashboard + informes ⬜
-**Objectiu:** visió i exportació.
+## Fase 9 — Dashboard + informes 🔄
+**Objectiu:** visió i exportació. *(Implementada; pendent de validació. Gràfics SVG autoallotjats al servidor.)*
 - Resum mensual (ingressos/despeses, taxa d'estalvi, top categories, per membre).
 - Gràfics: donut per categoria, evolució mensual, patrimoni net en el temps.
 - Exportació CSV/Excel + informe PDF mensual.

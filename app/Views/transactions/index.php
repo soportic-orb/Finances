@@ -62,6 +62,8 @@ $qsBase = array_filter([
         <input type="text" name="max" placeholder="<?= e(__('tx.amount_max')) ?>" value="<?= e((string) ($filters['max'] ?? '')) ?>" inputmode="decimal">
         <button class="btn" type="submit"><?= e(__('tx.filter')) ?></button>
         <a class="btn btn--ghost" href="<?= e(url('/transactions')) ?>"><?= e(__('tx.clear')) ?></a>
+        <a class="btn btn--ghost" href="<?= e(url('/export/transactions.csv?' . http_build_query($qsBase))) ?>"><?= e(__('export.csv')) ?></a>
+        <a class="btn btn--ghost" href="<?= e(url('/export/transactions.xls?' . http_build_query($qsBase))) ?>"><?= e(__('export.xls')) ?></a>
     </form>
 </section>
 

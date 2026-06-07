@@ -28,6 +28,7 @@ $u = Auth::user();
                     <a href="<?= e(url('/transactions')) ?>"><?= e(__('nav.transactions')) ?></a>
                     <a href="<?= e(url('/categories')) ?>"><?= e(__('nav.categories')) ?></a>
                     <a href="<?= e(url('/budgets')) ?>"><?= e(__('nav.planning')) ?></a>
+                    <a href="<?= e(url('/reports/monthly')) ?>"><?= e(__('nav.reports')) ?></a>
                     <a href="<?= e(url('/rules')) ?>"><?= e(__('nav.rules')) ?></a>
                     <a href="<?= e(url('/import')) ?>"><?= e(__('nav.import')) ?></a>
                     <?php if (Auth::isOwner()): ?>

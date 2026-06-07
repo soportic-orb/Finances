@@ -34,6 +34,7 @@ return [
     'nav.rules'         => 'Reglas',
     'nav.import'        => 'Importar',
     'nav.planning'      => 'Planificación',
+    'nav.reports'       => 'Informes',
     'nav.logout'        => 'Salir',
 
     'role.owner'        => 'Propietario',
@@ -355,4 +356,31 @@ return [
     'rec.detected'   => 'Detección completada: :n patrones.',
     'rec.deleted'    => 'Elemento eliminado.',
     'rec.delete'     => 'Eliminar',
+
+    // Dashboard e informes
+    'dash.income'        => 'Ingresos',
+    'dash.expense'       => 'Gastos',
+    'dash.net'           => 'Ahorro neto',
+    'dash.savings_rate'  => 'Tasa de ahorro',
+    'dash.this_month'    => 'Este mes',
+    'dash.by_category'   => 'Gasto por categoría',
+    'dash.by_member'     => 'Gasto por miembro',
+    'dash.evolution'     => 'Evolución mensual',
+    'dash.networth_time' => 'Patrimonio neto en el tiempo',
+    'dash.no_data'       => 'Sin datos para este período.',
+    'dash.legend_income' => 'Ingresos',
+    'dash.legend_expense' => 'Gastos',
+
+    'rep.title'        => 'Informe mensual',
+    'rep.period'       => 'Período',
+    'rep.view'         => 'Ver',
+    'rep.download_pdf' => 'Descargar PDF',
+    'rep.print'        => 'Imprimir',
+    'rep.top_categories' => 'Categorías principales',
+    'rep.generated'    => 'Generado el',
+    'rep.household'    => 'Hogar',
+
+    'export.title'     => 'Exportar',
+    'export.csv'       => 'Exportar CSV',
+    'export.xls'       => 'Exportar Excel',
 ];
