@@ -94,6 +94,12 @@ final class Account
         );
     }
 
+    /** Estableix el saldo actual directament (comptes vinculats a Enable Banking). */
+    public static function setCurrentBalance(int $id, float $balance): void
+    {
+        DB::run('UPDATE accounts SET current_balance = ? WHERE id = ?', [$balance, $id]);
+    }
+
     public static function netWorth(int $householdId): float
     {
         $row = DB::run(

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Controllers\AccountsController;
 use App\Controllers\AuthController;
+use App\Controllers\BankingController;
 use App\Controllers\DashboardController;
 use App\Controllers\HomeController;
 use App\Controllers\MembersController;
@@ -48,6 +49,14 @@ return static function (Router $router): void {
     $router->get('/members', [MembersController::class, 'index']);
     $router->post('/members/create', [MembersController::class, 'create']);
     $router->post('/members/{id}/delete', [MembersController::class, 'delete']);
+
+    // Enable Banking
+    $router->get('/banking', [BankingController::class, 'index']);
+    $router->get('/banking/settings', [BankingController::class, 'settings']);
+    $router->post('/banking/settings', [BankingController::class, 'saveSettings']);
+    $router->post('/banking/link', [BankingController::class, 'startLink']);
+    $router->get('/banking/callback', [BankingController::class, 'callback']);
+    $router->post('/banking/links/{id}/sync', [BankingController::class, 'sync']);
 
     // Configuració
     $router->get('/settings', [SettingsController::class, 'index']);

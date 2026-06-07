@@ -38,8 +38,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 4 — Comptes + transaccions 🔄
-**Objectiu:** nucli financer manual. *(Implementada; pendent de validació.)*
+## Fase 4 — Comptes + transaccions ✅
+**Objectiu:** nucli financer manual.
 - CRUD de comptes (tipus, divisa, propietari/membre, arxivat), saldo recalculat.
 - CRUD de transaccions, traspassos (`transfer_group_id`), filtres (dates/categoria/compte/membre/text/import), notes/etiquetes.
 - Vista de patrimoni net de la llar.
@@ -48,8 +48,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 5 — Integració Enable Banking ⬜
-**Objectiu:** connexió bancària en viu (nucli).
+## Fase 5 — Integració Enable Banking 🔄
+**Objectiu:** connexió bancària en viu (nucli). *(Implementada; pendent de validació.)*
 - `EnableBankingService`: JWT RS256 (kid=application_id), `.pem` a `/config/keys` 0600, entorn configurable, cache de token.
 - `GET /aspsps?country=ES`; flux `POST /auth` → callback (`code`/`state`) → `POST /sessions`; persistència immediata (`eb_*`).
 - Enllaç de comptes EB ↔ locals; sincronització de saldos i transaccions amb paginació `continuation_key`; **dedup per `external_ref`**.

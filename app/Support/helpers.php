@@ -147,6 +147,18 @@ if (!function_exists('uuid4')) {
     }
 }
 
+if (!function_exists('days_until')) {
+    /** Dies sencers fins a una data/hora (negatiu si ja ha passat); null si buida. */
+    function days_until(?string $datetime): ?int
+    {
+        if ($datetime === null || $datetime === '') {
+            return null;
+        }
+        $ts = strtotime($datetime);
+        return $ts ? (int) floor(($ts - time()) / 86400) : null;
+    }
+}
+
 if (!function_exists('app_version')) {
     function app_version(): string
     {

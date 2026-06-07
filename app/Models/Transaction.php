@@ -104,6 +104,16 @@ final class Transaction
         return $row ?: null;
     }
 
+    /** Deduplicació d'ingesta: existeix ja aquesta referència externa al compte? */
+    public static function existsExternal(int $accountId, string $externalRef): bool
+    {
+        $row = DB::run(
+            'SELECT id FROM transactions WHERE account_id = ? AND external_ref = ? LIMIT 1',
+            [$accountId, $externalRef]
+        )->fetch();
+        return (bool) $row;
+    }
+
     private static function dedupHash(int $accountId, string $date, float $amount, ?string $desc): string
     {
         $norm = mb_strtolower(trim((string) $desc));
