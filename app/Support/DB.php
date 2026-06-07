@@ -61,6 +61,12 @@ final class DB
         return true;
     }
 
+    /** Descarta la connexió actual (p. ex. després de generar config a l'instal·lador). */
+    public static function reset(): void
+    {
+        self::$pdo = null;
+    }
+
     /** @param array<string,mixed> $params */
     public static function run(string $sql, array $params = []): \PDOStatement
     {

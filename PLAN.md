@@ -7,8 +7,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 1 — Bastida 🔄
-**Objectiu:** esquelet tècnic funcional. *(Implementada; pendent de validació.)*
+## Fase 1 — Bastida ✅
+**Objectiu:** esquelet tècnic funcional.
 - Estructura MVC (router, controllers, models, views), capa `Support` (DB/PDO, Csrf, Crypto, Auth, Validator).
 - Sistema de migracions versionades + `VERSION` (semver).
 - Layout base Tailwind + Alpine, assets locals.
@@ -18,8 +18,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 2 — Instal·lador web ⬜
-**Objectiu:** instal·lació guiada i aïllada.
+## Fase 2 — Instal·lador web 🔄
+**Objectiu:** instal·lació guiada i aïllada. *(Implementada; pendent de validació.)*
 - Passos: requisits → BD + prova → migracions/seeds → llar + propietari → dades bàsiques (moneda, zona, idioma=ca) → generació `config.php`/`APP_KEY` → finalització.
 - Seeds de categories per defecte en català.
 - Bloqueig/eliminació de `/install` en acabar.

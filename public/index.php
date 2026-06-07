@@ -18,6 +18,12 @@ use App\Support\Router;
 Autoloader::register();
 Kernel::boot();
 
+// Si encara no s'ha executat l'instal·lador, redirigeix-hi.
+if (!\App\Support\Config::isInstalled()) {
+    header('Location: ' . url('/install/'));
+    exit;
+}
+
 // Protecció CSRF per a peticions que modifiquen estat.
 Csrf::check();
 
