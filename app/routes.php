@@ -5,9 +5,11 @@ declare(strict_types=1);
 use App\Controllers\AccountsController;
 use App\Controllers\AuthController;
 use App\Controllers\BankingController;
+use App\Controllers\CategoriesController;
 use App\Controllers\DashboardController;
 use App\Controllers\HomeController;
 use App\Controllers\MembersController;
+use App\Controllers\RulesController;
 use App\Controllers\SettingsController;
 use App\Controllers\TransactionsController;
 use App\Support\Router;
@@ -49,6 +51,21 @@ return static function (Router $router): void {
     $router->get('/members', [MembersController::class, 'index']);
     $router->post('/members/create', [MembersController::class, 'create']);
     $router->post('/members/{id}/delete', [MembersController::class, 'delete']);
+
+    // Categories
+    $router->get('/categories', [CategoriesController::class, 'index']);
+    $router->post('/categories', [CategoriesController::class, 'store']);
+    $router->get('/categories/{id}/edit', [CategoriesController::class, 'edit']);
+    $router->post('/categories/{id}/edit', [CategoriesController::class, 'update']);
+    $router->post('/categories/{id}/delete', [CategoriesController::class, 'delete']);
+
+    // Regles de categorització
+    $router->get('/rules', [RulesController::class, 'index']);
+    $router->post('/rules', [RulesController::class, 'store']);
+    $router->post('/rules/apply', [RulesController::class, 'apply']);
+    $router->get('/rules/{id}/edit', [RulesController::class, 'edit']);
+    $router->post('/rules/{id}/edit', [RulesController::class, 'update']);
+    $router->post('/rules/{id}/delete', [RulesController::class, 'delete']);
 
     // Enable Banking
     $router->get('/banking', [BankingController::class, 'index']);

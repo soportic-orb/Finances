@@ -48,8 +48,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 5 — Integració Enable Banking 🔄
-**Objectiu:** connexió bancària en viu (nucli). *(Implementada; pendent de validació.)*
+## Fase 5 — Integració Enable Banking ✅
+**Objectiu:** connexió bancària en viu (nucli).
 - `EnableBankingService`: JWT RS256 (kid=application_id), `.pem` a `/config/keys` 0600, entorn configurable, cache de token.
 - `GET /aspsps?country=ES`; flux `POST /auth` → callback (`code`/`state`) → `POST /sessions`; persistència immediata (`eb_*`).
 - Enllaç de comptes EB ↔ locals; sincronització de saldos i transaccions amb paginació `continuation_key`; **dedup per `external_ref`**.
@@ -60,8 +60,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 6 — Categories + regles ⬜
-**Objectiu:** classificació determinista.
+## Fase 6 — Categories + regles 🔄
+**Objectiu:** classificació determinista. *(Implementada; pendent de validació.)*
 - Categories jeràrquiques editables; `rules` (conté/regex/exacte) per descripció/comerç/contrapart/import, amb prioritat.
 - Aplicació de regles en ingesta i sota demanda; recategorització massiva.
 

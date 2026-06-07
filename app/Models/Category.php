@@ -54,4 +54,53 @@ final class Category
         $row = DB::run('SELECT id FROM categories WHERE id = ? AND household_id = ? LIMIT 1', [$id, $householdId])->fetch();
         return (bool) $row;
     }
+
+    /** @return array<string,mixed>|null */
+    public static function find(int $id, int $householdId): ?array
+    {
+        $row = DB::run('SELECT * FROM categories WHERE id = ? AND household_id = ? LIMIT 1', [$id, $householdId])->fetch();
+        return $row ?: null;
+    }
+
+    public const KINDS = ['ingres', 'despesa', 'traspas'];
+
+    public static function create(int $householdId, ?int $parentId, string $name, string $kind, ?string $icon, ?string $color): int
+    {
+        DB::run(
+            'INSERT INTO categories (household_id, parent_id, name, kind, icon, color) VALUES (?, ?, ?, ?, ?, ?)',
+            [$householdId, $parentId, $name, $kind, $icon, $color]
+        );
+        return (int) DB::connection()->lastInsertId();
+    }
+
+    public static function update(int $id, int $householdId, ?int $parentId, string $name, string $kind, ?string $icon, ?string $color): void
+    {
+        // Evita que una categoria sigui pare d'ella mateixa.
+        if ($parentId === $id) {
+            $parentId = null;
+        }
+        DB::run(
+            'UPDATE categories SET parent_id = ?, name = ?, kind = ?, icon = ?, color = ? WHERE id = ? AND household_id = ?',
+            [$parentId, $name, $kind, $icon, $color, $id, $householdId]
+        );
+    }
+
+    public static function delete(int $id, int $householdId): void
+    {
+        DB::run('DELETE FROM categories WHERE id = ? AND household_id = ?', [$id, $householdId]);
+    }
+
+    /** @return array<int,string> categories pare (sense parent) id => name, per a selects */
+    public static function parentsForSelect(int $householdId): array
+    {
+        $rows = DB::run(
+            'SELECT id, name FROM categories WHERE household_id = ? AND parent_id IS NULL ORDER BY name',
+            [$householdId]
+        )->fetchAll();
+        $out = [];
+        foreach ($rows as $r) {
+            $out[(int) $r['id']] = (string) $r['name'];
+        }
+        return $out;
+    }
 }

@@ -104,6 +104,25 @@ final class Transaction
         return $row ?: null;
     }
 
+    public static function setCategory(int $id, int $householdId, ?int $categoryId): void
+    {
+        DB::run('UPDATE transactions SET category_id = ? WHERE id = ? AND household_id = ?', [$categoryId, $id, $householdId]);
+    }
+
+    /**
+     * Files per a categorització per regles (exclou traspassos).
+     * @return array<int,array<string,mixed>>
+     */
+    public static function rowsForCategorization(int $householdId, bool $onlyUncategorized): array
+    {
+        $sql = "SELECT id, category_id, description, merchant, counterparty, amount
+                FROM transactions WHERE household_id = ? AND type <> 'transfer'";
+        if ($onlyUncategorized) {
+            $sql .= ' AND category_id IS NULL';
+        }
+        return DB::run($sql, [$householdId])->fetchAll();
+    }
+
     /** Deduplicació d'ingesta: existeix ja aquesta referència externa al compte? */
     public static function existsExternal(int $accountId, string $externalRef): bool
     {

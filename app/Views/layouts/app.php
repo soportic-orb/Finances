@@ -26,6 +26,8 @@ $u = Auth::user();
                     <a href="<?= e(url('/dashboard')) ?>"><?= e(__('nav.dashboard')) ?></a>
                     <a href="<?= e(url('/accounts')) ?>"><?= e(__('nav.accounts')) ?></a>
                     <a href="<?= e(url('/transactions')) ?>"><?= e(__('nav.transactions')) ?></a>
+                    <a href="<?= e(url('/categories')) ?>"><?= e(__('nav.categories')) ?></a>
+                    <a href="<?= e(url('/rules')) ?>"><?= e(__('nav.rules')) ?></a>
                     <?php if (Auth::isOwner()): ?>
                         <a href="<?= e(url('/banking')) ?>"><?= e(__('nav.banking')) ?></a>
                         <a href="<?= e(url('/members')) ?>"><?= e(__('nav.members')) ?></a>

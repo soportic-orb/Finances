@@ -7,6 +7,7 @@ namespace App\Services;
 use App\Models\Account;
 use App\Models\EbAccountLink;
 use App\Models\EbSyncLog;
+use App\Models\Rule;
 use App\Models\Transaction;
 
 /**
@@ -116,6 +117,9 @@ final class EbSyncService
                 : date('Y-m-d', strtotime('-90 days'));
             $dateTo = date('Y-m-d');
 
+            // Regles actives per categoritzar en ingesta.
+            $rules = Rule::enabledByHousehold($householdId);
+
             $continuation = null;
             $pages = 0;
             do {
@@ -132,6 +136,9 @@ final class EbSyncService
                     if (Transaction::existsExternal($accountId, $mapped['external_ref'])) {
                         $dup++;
                         continue;
+                    }
+                    if ($rules !== []) {
+                        $mapped['category_id'] = RuleEngine::categoryFor($rules, $mapped);
                     }
                     Transaction::create($householdId, $mapped);
                     $new++;

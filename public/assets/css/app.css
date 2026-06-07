@@ -214,6 +214,18 @@ input, select {
 .pagination { display: flex; align-items: center; gap: 1rem; margin-top: 1rem; }
 .pagination .btn { margin: 0; }
 
+/* Arbre de categories */
+.cat-parent {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: .5rem 0; border-bottom: 1px solid var(--border); margin-top: .5rem;
+}
+.cat-child {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: .3rem 0 .3rem 1.5rem; font-size: .9rem; color: var(--muted);
+    border-bottom: 1px solid var(--border);
+}
+.cat-child .cat-name { color: var(--text); }
+
 /* Pantalla d'autenticació */
 body.auth {
     display: flex; align-items: center; justify-content: center; min-height: 100vh;

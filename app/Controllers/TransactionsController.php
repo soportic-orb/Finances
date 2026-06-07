@@ -7,8 +7,10 @@ namespace App\Controllers;
 use App\Models\Account;
 use App\Models\AuditLog;
 use App\Models\Category;
+use App\Models\Rule;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Services\RuleEngine;
 use App\Support\Auth;
 use App\Support\Guard;
 use App\Support\View;
@@ -67,6 +69,19 @@ final class TransactionsController
 
         // Signe segons el tipus.
         $signed = $type === 'expense' ? -$amountInput : $amountInput;
+
+        // Categorització per regles en ingesta si l'usuari no ha triat categoria.
+        if ($categoryId === 0) {
+            $fromRule = RuleEngine::categoryFor(Rule::enabledByHousehold($hid), [
+                'description'  => trim($_POST['description'] ?? ''),
+                'merchant'     => trim($_POST['merchant'] ?? ''),
+                'counterparty' => '',
+                'amount'       => $signed,
+            ]);
+            if ($fromRule !== null) {
+                $categoryId = $fromRule;
+            }
+        }
 
         $id = Transaction::create($hid, [
             'account_id'        => $accountId,
