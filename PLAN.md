@@ -99,8 +99,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 10 — Capa d'IA 🔄
-**Objectiu:** anàlisi i assistència amb Claude. *(Implementada; pendent de validació.)*
+## Fase 10 — Capa d'IA ✅
+**Objectiu:** anàlisi i assistència amb Claude.
 - `AiService` (clau xifrada, model per tasca, reintents, `ai_jobs`).
 - Categorització IA (JSON estricte) com a complement de regles; anàlisi mensual a `ai_insights`; recomanacions d'estalvi; detecció d'anomalies; **xat en llenguatge natural**.
 - **Minimització de dades** + opt-in per funció + `payload_summary`.
@@ -109,8 +109,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 11 — Actualitzacions OTA via Git ⬜
-**Objectiu:** autoactualització segura (com SysRevAI).
+## Fase 11 — Actualitzacions OTA via Git 🔄
+**Objectiu:** autoactualització segura (com SysRevAI). *(Implementada; pendent de validació.)*
 - `UpdateService` + `bin/update.php`: manteniment → backup BD i `/config` (inclou keys) → `git fetch`/`reset` → composer → migracions → assets → **rollback automàtic**.
 - Botó al panell + cron.
 

@@ -36,6 +36,7 @@ return [
     'nav.planning'      => 'Planificació',
     'nav.reports'       => 'Informes',
     'nav.ai'            => 'IA',
+    'nav.system'        => 'Sistema',
     'nav.logout'        => 'Surt',
 
     'role.owner'        => 'Propietari',
@@ -450,4 +451,26 @@ return [
     'ai.you'             => 'Tu',
     'ai.assistant'       => 'Assistent',
     'ai.chat_empty'      => 'Fes una pregunta sobre les vostres finances (dades agregades).',
+
+    // Manteniment
+    'maint.title'       => 'Manteniment en curs',
+    'maint.text'        => 'Estem actualitzant l\'aplicació. Torna d\'aquí a uns minuts.',
+
+    // Sistema / actualitzacions
+    'upd.title'         => 'Sistema i actualitzacions',
+    'upd.version'       => 'Versió instal·lada',
+    'upd.branch'        => 'Branca de seguiment',
+    'upd.check'         => 'Comprova actualitzacions',
+    'upd.run'           => 'Actualitza ara',
+    'upd.run_confirm'   => 'Vols actualitzar? Es farà backup i, si falla, rollback automàtic.',
+    'upd.available'     => 'Actualització disponible: :from → :to.',
+    'upd.uptodate'      => 'Ja estàs a l\'última versió (:v).',
+    'upd.maintenance_on' => 'Mode manteniment ACTIU.',
+    'upd.backup_now'    => 'Fes backup ara',
+    'upd.backup_done'   => 'Backup creat correctament.',
+    'upd.backups'       => 'Còpies de seguretat',
+    'upd.log'           => 'Registre d\'actualitzacions',
+    'upd.no_log'        => 'Encara no hi ha registre.',
+    'upd.no_backups'    => 'Encara no hi ha backups.',
+    'upd.safe_note'     => 'Segur per a hosting compartit: backup previ, rollback automàtic i mai esborra /config/keys.',
 ];

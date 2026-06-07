@@ -19,6 +19,7 @@ use App\Controllers\ReportsController;
 use App\Controllers\RulesController;
 use App\Controllers\SettingsController;
 use App\Controllers\TransactionsController;
+use App\Controllers\UpdateController;
 use App\Support\Router;
 
 /**
@@ -124,6 +125,12 @@ return static function (Router $router): void {
     $router->post('/banking/link', [BankingController::class, 'startLink']);
     $router->get('/banking/callback', [BankingController::class, 'callback']);
     $router->post('/banking/links/{id}/sync', [BankingController::class, 'sync']);
+
+    // Sistema (actualitzacions OTA + backups)
+    $router->get('/update', [UpdateController::class, 'index']);
+    $router->post('/update/check', [UpdateController::class, 'check']);
+    $router->post('/update/run', [UpdateController::class, 'run']);
+    $router->post('/update/backup', [UpdateController::class, 'backup']);
 
     // Configuració
     $router->get('/settings', [SettingsController::class, 'index']);

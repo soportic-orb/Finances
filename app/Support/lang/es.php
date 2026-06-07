@@ -36,6 +36,7 @@ return [
     'nav.planning'      => 'Planificación',
     'nav.reports'       => 'Informes',
     'nav.ai'            => 'IA',
+    'nav.system'        => 'Sistema',
     'nav.logout'        => 'Salir',
 
     'role.owner'        => 'Propietario',
@@ -446,4 +447,26 @@ return [
     'ai.you'             => 'Tú',
     'ai.assistant'       => 'Asistente',
     'ai.chat_empty'      => 'Haz una pregunta sobre vuestras finanzas (datos agregados).',
+
+    // Mantenimiento
+    'maint.title'       => 'Mantenimiento en curso',
+    'maint.text'        => 'Estamos actualizando la aplicación. Vuelve en unos minutos.',
+
+    // Sistema / actualizaciones
+    'upd.title'         => 'Sistema y actualizaciones',
+    'upd.version'       => 'Versión instalada',
+    'upd.branch'        => 'Rama de seguimiento',
+    'upd.check'         => 'Comprobar actualizaciones',
+    'upd.run'           => 'Actualizar ahora',
+    'upd.run_confirm'   => '¿Actualizar? Se hará backup y, si falla, rollback automático.',
+    'upd.available'     => 'Actualización disponible: :from → :to.',
+    'upd.uptodate'      => 'Ya estás en la última versión (:v).',
+    'upd.maintenance_on' => 'Modo mantenimiento ACTIVO.',
+    'upd.backup_now'    => 'Hacer backup ahora',
+    'upd.backup_done'   => 'Backup creado correctamente.',
+    'upd.backups'       => 'Copias de seguridad',
+    'upd.log'           => 'Registro de actualizaciones',
+    'upd.no_log'        => 'Aún no hay registro.',
+    'upd.no_backups'    => 'Aún no hay backups.',
+    'upd.safe_note'     => 'Seguro para hosting compartido: backup previo, rollback automático y nunca borra /config/keys.',
 ];

@@ -252,6 +252,13 @@ input, select {
 .inline-add input { width: auto; flex: 1; margin: 0; }
 .inline-add .btn { margin: 0; }
 
+/* Registre d'actualitzacions */
+.logbox {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: .75rem; font-size: .8rem; overflow-x: auto; white-space: pre-wrap;
+    color: var(--muted); max-height: 320px;
+}
+
 /* Xat IA */
 .chat { display: flex; flex-direction: column; gap: .75rem; }
 .chat__q { background: var(--surface-2); border-radius: 8px; padding: .5rem .75rem; }

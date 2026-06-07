@@ -24,6 +24,19 @@ if (!\App\Support\Config::isInstalled()) {
     exit;
 }
 
+// Mode manteniment (durant actualitzacions OTA): bloqueja excepte /update i /assets.
+$reqPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+if (
+    is_file(BASE_PATH . '/storage/maintenance.flag')
+    && !str_starts_with($reqPath, '/update')
+    && !str_starts_with($reqPath, '/assets')
+) {
+    http_response_code(503);
+    header('Retry-After: 120');
+    \App\Support\View::render('errors/maintenance', [], 'layouts/auth');
+    exit;
+}
+
 // Protecció CSRF per a peticions que modifiquen estat.
 Csrf::check();
 

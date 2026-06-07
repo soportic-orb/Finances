@@ -35,6 +35,7 @@ $u = Auth::user();
                     <?php if (Auth::isOwner()): ?>
                         <a href="<?= e(url('/banking')) ?>"><?= e(__('nav.banking')) ?></a>
                         <a href="<?= e(url('/members')) ?>"><?= e(__('nav.members')) ?></a>
+                        <a href="<?= e(url('/update')) ?>"><?= e(__('nav.system')) ?></a>
                     <?php endif; ?>
                     <a href="<?= e(url('/settings')) ?>"><?= e(__('nav.settings')) ?></a>
                     <span class="nav__user"><?= e($u['name']) ?> · <?= e(__('role.' . $u['role'])) ?></span>
