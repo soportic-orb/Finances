@@ -89,8 +89,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 9 — Dashboard + informes 🔄
-**Objectiu:** visió i exportació. *(Implementada; pendent de validació. Gràfics SVG autoallotjats al servidor.)*
+## Fase 9 — Dashboard + informes ✅
+**Objectiu:** visió i exportació. *(Gràfics SVG autoallotjats al servidor.)*
 - Resum mensual (ingressos/despeses, taxa d'estalvi, top categories, per membre).
 - Gràfics: donut per categoria, evolució mensual, patrimoni net en el temps.
 - Exportació CSV/Excel + informe PDF mensual.
@@ -99,8 +99,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 10 — Capa d'IA ⬜
-**Objectiu:** anàlisi i assistència amb Claude.
+## Fase 10 — Capa d'IA 🔄
+**Objectiu:** anàlisi i assistència amb Claude. *(Implementada; pendent de validació.)*
 - `AiService` (clau xifrada, model per tasca, reintents, `ai_jobs`).
 - Categorització IA (JSON estricte) com a complement de regles; anàlisi mensual a `ai_insights`; recomanacions d'estalvi; detecció d'anomalies; **xat en llenguatge natural**.
 - **Minimització de dades** + opt-in per funció + `payload_summary`.

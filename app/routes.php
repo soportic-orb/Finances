@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Controllers\AccountsController;
+use App\Controllers\AiController;
 use App\Controllers\AuthController;
 use App\Controllers\BankingController;
 use App\Controllers\BudgetsController;
@@ -90,6 +91,18 @@ return static function (Router $router): void {
     $router->get('/recurring', [RecurringController::class, 'index']);
     $router->post('/recurring/detect', [RecurringController::class, 'detect']);
     $router->post('/recurring/{id}/delete', [RecurringController::class, 'delete']);
+
+    // Capa d'IA
+    $router->get('/ai/categorize', [AiController::class, 'categorize']);
+    $router->post('/ai/categorize/suggest', [AiController::class, 'suggest']);
+    $router->post('/ai/categorize/apply', [AiController::class, 'applyCategories']);
+    $router->get('/ai/analysis', [AiController::class, 'analysis']);
+    $router->post('/ai/analysis/generate', [AiController::class, 'generateAnalysis']);
+    $router->get('/ai/chat', [AiController::class, 'chat']);
+    $router->post('/ai/chat', [AiController::class, 'ask']);
+    $router->post('/ai/chat/clear', [AiController::class, 'clearChat']);
+    $router->get('/ai/settings', [AiController::class, 'settings']);
+    $router->post('/ai/settings', [AiController::class, 'saveSettings']);
 
     // Informes i exportació
     $router->get('/reports/monthly', [ReportsController::class, 'monthly']);

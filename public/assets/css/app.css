@@ -252,6 +252,11 @@ input, select {
 .inline-add input { width: auto; flex: 1; margin: 0; }
 .inline-add .btn { margin: 0; }
 
+/* Xat IA */
+.chat { display: flex; flex-direction: column; gap: .75rem; }
+.chat__q { background: var(--surface-2); border-radius: 8px; padding: .5rem .75rem; }
+.chat__a { border-left: 3px solid var(--primary); padding: .25rem .75rem; }
+
 /* Arbre de categories */
 .cat-parent {
     display: flex; justify-content: space-between; align-items: center;

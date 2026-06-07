@@ -119,6 +119,15 @@ final class Transaction
         DB::run('UPDATE transactions SET category_id = ? WHERE id = ? AND household_id = ?', [$categoryId, $id, $householdId]);
     }
 
+    /** Assigna categoria marcant que prové de la IA. */
+    public static function setCategoryAi(int $id, int $householdId, int $categoryId): void
+    {
+        DB::run(
+            'UPDATE transactions SET category_id = ?, ai_categorized = 1 WHERE id = ? AND household_id = ?',
+            [$categoryId, $id, $householdId]
+        );
+    }
+
     /**
      * Files per a categorització per regles (exclou traspassos).
      * @return array<int,array<string,mixed>>
