@@ -5,11 +5,14 @@ declare(strict_types=1);
 use App\Controllers\AccountsController;
 use App\Controllers\AuthController;
 use App\Controllers\BankingController;
+use App\Controllers\BudgetsController;
 use App\Controllers\CategoriesController;
 use App\Controllers\DashboardController;
+use App\Controllers\GoalsController;
 use App\Controllers\HomeController;
 use App\Controllers\ImportController;
 use App\Controllers\MembersController;
+use App\Controllers\RecurringController;
 use App\Controllers\RulesController;
 use App\Controllers\SettingsController;
 use App\Controllers\TransactionsController;
@@ -67,6 +70,24 @@ return static function (Router $router): void {
     $router->get('/rules/{id}/edit', [RulesController::class, 'edit']);
     $router->post('/rules/{id}/edit', [RulesController::class, 'update']);
     $router->post('/rules/{id}/delete', [RulesController::class, 'delete']);
+
+    // Pressupostos
+    $router->get('/budgets', [BudgetsController::class, 'index']);
+    $router->post('/budgets', [BudgetsController::class, 'store']);
+    $router->post('/budgets/{id}/edit', [BudgetsController::class, 'update']);
+    $router->post('/budgets/{id}/delete', [BudgetsController::class, 'delete']);
+
+    // Objectius d'estalvi
+    $router->get('/goals', [GoalsController::class, 'index']);
+    $router->post('/goals', [GoalsController::class, 'store']);
+    $router->post('/goals/{id}/edit', [GoalsController::class, 'update']);
+    $router->post('/goals/{id}/contribute', [GoalsController::class, 'contribute']);
+    $router->post('/goals/{id}/delete', [GoalsController::class, 'delete']);
+
+    // Recurrents / subscripcions
+    $router->get('/recurring', [RecurringController::class, 'index']);
+    $router->post('/recurring/detect', [RecurringController::class, 'detect']);
+    $router->post('/recurring/{id}/delete', [RecurringController::class, 'delete']);
 
     // Importació de fitxers
     $router->get('/import', [ImportController::class, 'index']);

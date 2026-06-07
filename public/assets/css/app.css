@@ -214,6 +214,28 @@ input, select {
 .pagination { display: flex; align-items: center; gap: 1rem; margin-top: 1rem; }
 .pagination .btn { margin: 0; }
 
+/* Subnavegació (pestanyes) */
+.subnav { display: flex; gap: .5rem; margin: 0 0 1rem; border-bottom: 1px solid var(--border); }
+.subnav a {
+    padding: .5rem .9rem; color: var(--muted); text-decoration: none;
+    border-bottom: 2px solid transparent; margin-bottom: -1px;
+}
+.subnav a.active { color: var(--text); border-bottom-color: var(--primary); }
+.subnav a:hover { color: var(--text); }
+
+/* Barres de progrés (pressupostos/objectius) */
+.budget { padding: .6rem 0; border-bottom: 1px solid var(--border); }
+.budget__head { display: flex; justify-content: space-between; align-items: center; margin-bottom: .4rem; }
+.budget__meta { font-size: .85rem; margin-top: .35rem; }
+.bar { background: var(--surface-2); border-radius: 999px; height: 9px; overflow: hidden; }
+.bar__fill { height: 100%; background: var(--primary); border-radius: 999px; transition: width .3s; }
+.bar__fill--warn { background: #f59e0b; }
+.bar__fill--over { background: #f87171; }
+.bar__fill--ok2 { background: var(--ok); }
+.inline-add { display: flex; gap: .5rem; margin-top: .5rem; }
+.inline-add input { width: auto; flex: 1; margin: 0; }
+.inline-add .btn { margin: 0; }
+
 /* Arbre de categories */
 .cat-parent {
     display: flex; justify-content: space-between; align-items: center;

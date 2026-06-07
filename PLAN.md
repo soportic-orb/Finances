@@ -69,8 +69,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 7 — Importació de fitxers 🔄
-**Objectiu:** històric i bancs no coberts. *(Implementada; pendent de validació.)*
+## Fase 7 — Importació de fitxers ✅
+**Objectiu:** històric i bancs no coberts.
 - Parser **Norma 43 (Quadern 43 AEB/CSB)** prioritari.
 - **CSV** amb mapatge de columnes configurable, desat com a plantilla per banc; previsualització + dedup.
 - (Opcional) OFX/QIF.
@@ -79,8 +79,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 8 — Pressupostos + objectius + recurrents ⬜
-**Objectiu:** eines de control i estalvi.
+## Fase 8 — Pressupostos + objectius + recurrents 🔄
+**Objectiu:** eines de control i estalvi. *(Implementada; pendent de validació.)*
 - Pressupostos per categoria/període amb alertes (80%/100%) i rollover.
 - Objectius d'estalvi amb progrés i quota mensual estimada.
 - Detecció de recurrents/subscripcions + alerta d'inactives.
