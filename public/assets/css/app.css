@@ -168,6 +168,13 @@ main.container { padding-top: 2rem; padding-bottom: 2rem; }
     border-bottom: 1px solid var(--border); margin-bottom: .2rem;
 }
 .nav__user-btn { max-width: 200px; }
+.nav__user-btn > span:not(.nav__caret) { overflow: hidden; text-overflow: ellipsis; }
+
+/* Icones lineals */
+.ic { display: inline-block; vertical-align: middle; flex: 0 0 auto; }
+.nav__link .ic, .nav__btn .ic, .nav__menu a .ic, .nav__logout .ic { width: 18px; height: 18px; }
+.nav__caret { display: inline-flex; }
+.nav__caret .ic { width: 14px; height: 14px; opacity: .7; }
 .linkbtn {
     background: none; border: 0; color: var(--muted);
     cursor: pointer; font: inherit; padding: 0;
@@ -329,7 +336,8 @@ input, select {
     display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;
     padding: .7rem .85rem; background: var(--surface-2); border-bottom: 1px solid var(--border);
 }
-.copilot__title { margin: 0; font-size: .95rem; font-weight: 700; }
+.copilot__title { margin: 0; font-size: .95rem; font-weight: 700; display: flex; align-items: center; gap: .4rem; }
+.copilot__icon-btn .ic { width: 16px; height: 16px; }
 .copilot__subtitle { margin: 2px 0 0; font-size: .72rem; color: var(--muted); }
 .copilot__head-actions { display: flex; gap: 2px; }
 .copilot__icon-btn {
