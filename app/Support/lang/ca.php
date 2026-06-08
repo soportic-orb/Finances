@@ -458,6 +458,10 @@ return [
     'ai.you'             => 'Tu',
     'ai.assistant'       => 'Assistent',
     'ai.chat_empty'      => 'Fes una pregunta sobre les vostres finances (dades agregades).',
+    'ai.open_chat'       => 'Obre el xat financer',
+    'ai.close'           => 'Tanca',
+    'ai.fullpage'        => 'Obre a pantalla completa',
+    'ai.widget_error'    => 'No s\'ha pogut obtenir la resposta. Torna-ho a provar.',
 
     // Manteniment
     'maint.title'       => 'Manteniment en curs',

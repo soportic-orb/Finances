@@ -257,7 +257,42 @@ final class AiController
     {
         Guard::requireAuth();
         unset($_SESSION['ai_chat']);
+        // Si és AJAX, respon JSON; si no, redirigeix.
+        if (($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') === 'fetch') {
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['ok' => true]);
+            exit;
+        }
         redirect('/ai/chat');
+    }
+
+    /** Xat asíncron (widget flotant). Retorna JSON amb la resposta en HTML segur. */
+    public function ask_json(): void
+    {
+        Guard::requireAuth();
+        header('Content-Type: application/json; charset=utf-8');
+        $hid = (int) Auth::householdId();
+        $svc = $this->service();
+        $question = trim($_POST['question'] ?? '');
+
+        if (!$svc->isConfigured() || !$svc->featureEnabled('chat')) {
+            echo json_encode(['ok' => false, 'error' => __('ai.disabled')]);
+            exit;
+        }
+        if ($question === '') {
+            echo json_encode(['ok' => false, 'error' => '']);
+            exit;
+        }
+        try {
+            $answer = $svc->chat($question, $this->buildContext($hid));
+            $_SESSION['ai_chat'][] = ['q' => $question, 'a' => $answer];
+            $_SESSION['ai_chat'] = array_slice($_SESSION['ai_chat'], -10);
+            AuditLog::record('ai_chat', 'ai', null);
+            echo json_encode(['ok' => true, 'html' => \App\Support\Markdown::render($answer)], JSON_UNESCAPED_UNICODE);
+        } catch (\Throwable $e) {
+            echo json_encode(['ok' => false, 'error' => $e->getMessage()], JSON_UNESCAPED_UNICODE);
+        }
+        exit;
     }
 
     /**

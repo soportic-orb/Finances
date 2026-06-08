@@ -18,8 +18,8 @@ final class ReportsController
     {
         Guard::requireAuth();
         $data = $this->buildData();
-        // Pàgina autònoma (sense layout de l'app) amb botons d'acció.
-        echo View::capture('reports/monthly', $data + ['embedded' => true], null);
+        // Vista integrada a la interfície de l'app.
+        View::render('reports/monthly', $data, 'layouts/app');
     }
 
     /** Descàrrega de l'informe en PDF (dompdf si està instal·lat). */
@@ -27,7 +27,7 @@ final class ReportsController
     {
         Guard::requireAuth();
         $data = $this->buildData();
-        $html = View::capture('reports/monthly', $data + ['embedded' => false], null);
+        $html = View::capture('reports/document', $data + ['embedded' => false], null);
         AuditLog::record('export_pdf', 'report', null, $data['periodLabel']);
 
         $filename = 'informe-' . $data['year'] . '-' . sprintf('%02d', $data['month']) . '.pdf';

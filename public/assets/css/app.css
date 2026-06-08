@@ -276,6 +276,75 @@ input, select {
 .chat__q { background: var(--surface-2); border-radius: 8px; padding: .5rem .75rem; }
 .chat__a { border-left: 3px solid var(--primary); padding: .25rem .75rem; }
 
+/* Botó flotant i finestra de xat financer */
+.aifab {
+    position: fixed; right: 20px; bottom: 20px; z-index: 60;
+    width: 56px; height: 56px; border-radius: 50%; border: 0; cursor: pointer;
+    background: var(--primary); color: #fff; font-size: 1.5rem; line-height: 1;
+    box-shadow: 0 6px 20px rgba(0,0,0,.35);
+}
+.aifab:hover { filter: brightness(1.08); }
+.aiwidget {
+    position: fixed; right: 20px; bottom: 86px; z-index: 60;
+    width: min(480px, 94vw); height: min(640px, 78vh);
+    display: flex; flex-direction: column;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; box-shadow: 0 12px 40px rgba(0,0,0,.45); overflow: hidden;
+}
+.aiwidget[hidden] { display: none; }
+.aiwidget__head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: .6rem .8rem; border-bottom: 1px solid var(--border); background: var(--surface-2);
+}
+.aiwidget__title { font-weight: 700; font-size: .95rem; }
+.aiwidget__actions { display: flex; gap: .25rem; }
+.aiwidget__btn {
+    background: none; border: 0; color: var(--muted); cursor: pointer;
+    font-size: 1rem; text-decoration: none; padding: .15rem .4rem; border-radius: 6px;
+}
+.aiwidget__btn:hover { color: var(--text); background: rgba(255,255,255,.06); }
+.aiwidget__log { flex: 1; overflow-y: auto; padding: .8rem; }
+.aiwidget__form { display: flex; gap: .5rem; padding: .6rem .8rem; border-top: 1px solid var(--border); }
+.aiwidget__form input { margin: 0; }
+.aiwidget__form .btn { margin: 0; flex: 0 0 auto; }
+@media (max-width: 560px) {
+    .aiwidget { right: 3vw; left: 3vw; width: auto; bottom: 80px; height: 75vh; }
+}
+
+/* Indicador "escrivint…" (tres punts saltarins) */
+.typing-dots { display: inline-flex; gap: 4px; align-items: center; vertical-align: middle; }
+.typing-dots span {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--primary);
+    display: inline-block; animation: typing-bounce 1.2s infinite ease-in-out both;
+}
+.typing-dots span:nth-child(1) { animation-delay: -0.24s; }
+.typing-dots span:nth-child(2) { animation-delay: -0.12s; }
+@keyframes typing-bounce {
+    0%, 80%, 100% { transform: translateY(0); opacity: .4; }
+    40% { transform: translateY(-5px); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .typing-dots span { animation: none; opacity: .7; }
+}
+
+/* Contingut amb format Markdown (respostes de la IA) */
+.md > :first-child { margin-top: 0; }
+.md > :last-child { margin-bottom: 0; }
+.md p { margin: .5rem 0; }
+.md h4, .md h5, .md h6 { margin: .75rem 0 .35rem; }
+.md ul, .md ol { margin: .5rem 0; padding-left: 1.4rem; }
+.md li { margin: .15rem 0; }
+.md strong { color: var(--text); font-weight: 700; }
+.md code {
+    background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: 5px; padding: .05rem .35rem; font-size: .9em;
+}
+.md a { color: var(--primary); }
+.md-table { width: 100%; border-collapse: collapse; margin: .6rem 0; font-size: .9rem; }
+.md-table th, .md-table td { text-align: left; padding: .4rem .55rem; border: 1px solid var(--border); }
+.md-table th { background: var(--surface-2); color: var(--text); }
+.md-table tr:nth-child(even) td { background: rgba(255,255,255,.02); }
+
 /* Arbre de categories */
 .cat-parent {
     display: flex; justify-content: space-between; align-items: center;

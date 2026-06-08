@@ -454,6 +454,10 @@ return [
     'ai.you'             => 'Tú',
     'ai.assistant'       => 'Asistente',
     'ai.chat_empty'      => 'Haz una pregunta sobre vuestras finanzas (datos agregados).',
+    'ai.open_chat'       => 'Abrir el chat financiero',
+    'ai.close'           => 'Cerrar',
+    'ai.fullpage'        => 'Abrir a pantalla completa',
+    'ai.widget_error'    => 'No se ha podido obtener la respuesta. Inténtalo de nuevo.',
 
     // Mantenimiento
     'maint.title'       => 'Mantenimiento en curso',
