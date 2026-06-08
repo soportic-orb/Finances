@@ -84,19 +84,19 @@ final class Migrator
             $sql = (string) file_get_contents($file);
             $checksum = hash('sha256', $sql);
 
-            $pdo->beginTransaction();
+            // No s'embolcalla en una transacció: a MySQL les sentències DDL
+            // (CREATE TABLE…) provoquen un commit implícit, de manera que un
+            // commit() posterior fallaria amb "There is no active transaction".
+            // Les migracions són idempotents (IF NOT EXISTS), així que re-executar
+            // és segur.
             try {
                 $pdo->exec($sql);
                 $stmt = $pdo->prepare(
                     'INSERT INTO schema_migrations (version, checksum, applied_at) VALUES (?, ?, NOW())'
                 );
                 $stmt->execute([$version, $checksum]);
-                $pdo->commit();
                 $done[] = $version;
             } catch (\Throwable $e) {
-                if ($pdo->inTransaction()) {
-                    $pdo->rollBack();
-                }
                 throw new \RuntimeException("Ha fallat la migració $version: " . $e->getMessage(), 0, $e);
             }
         }
