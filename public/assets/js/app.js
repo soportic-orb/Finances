@@ -82,93 +82,139 @@
 })();
 
 /*
- * Xat financer flotant: botó a totes les pàgines que obre una finestra de xat
- * asíncrona (fetch). Mostra punts saltarins mentre la IA respon.
+ * Copilot financer flotant (disseny tipus SysRevAI): botó a totes les pàgines
+ * que obre un panell de xat asíncron amb historial, estat expandit, neteja i
+ * indicador d'escriptura. Les respostes de l'assistent arriben ja en HTML segur
+ * (Markdown renderitzat al servidor).
  */
 (function () {
     'use strict';
 
     function init() {
-        var fab = document.getElementById('ai-fab');
-        var widget = document.getElementById('ai-widget');
-        var form = document.getElementById('ai-widget-form');
-        var log = document.getElementById('ai-widget-log');
-        if (!fab || !widget || !form || !log) {
-            return;
-        }
-        var input = form.querySelector('input[name="question"]');
-        var btn = form.querySelector('button[type="submit"]');
+        var root = document.getElementById('copilot');
+        if (!root) { return; }
 
-        function open() {
-            widget.hidden = false;
-            fab.setAttribute('aria-expanded', 'true');
-            setTimeout(function () { input.focus(); }, 50);
+        var askUrl = root.dataset.ask;
+        var historyUrl = root.dataset.history;
+        var clearUrl = root.dataset.clear;
+        var expandKey = root.dataset.expandKey || 'copilot.expanded';
+
+        var panel = document.getElementById('copilotPanel');
+        var toggle = document.getElementById('copilotToggle');
+        var closeBtn = document.getElementById('copilotClose');
+        var clearBtn = document.getElementById('copilotClear');
+        var expand = document.getElementById('copilotExpand');
+        var msgs = document.getElementById('copilotMessages');
+        var form = document.getElementById('copilotForm');
+        var input = document.getElementById('copilotInput');
+        var greeting = document.getElementById('copilotGreeting');
+        if (!panel || !toggle || !form || !input || !msgs) { return; }
+
+        var hydrated = false;
+        var sending = false;
+
+        try { if (localStorage.getItem(expandKey) === '1') { setExpanded(true); } } catch (e) {}
+
+        toggle.addEventListener('click', function () { panel.hidden ? openPanel() : closePanel(); });
+        if (closeBtn) { closeBtn.addEventListener('click', function (e) { e.preventDefault(); closePanel(); }); }
+        if (expand) {
+            expand.addEventListener('click', function (e) {
+                e.preventDefault();
+                setExpanded(!root.classList.contains('is-expanded'));
+            });
         }
-        function close() {
-            widget.hidden = true;
-            fab.setAttribute('aria-expanded', 'false');
+        if (clearBtn) {
+            clearBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                if (!confirm(root.dataset.confirm || '?')) { return; }
+                fetch(clearUrl, { method: 'POST', headers: { 'X-Requested-With': 'fetch' } }).finally(function () {
+                    msgs.querySelectorAll('.copilot__msg, .copilot__typing').forEach(function (n) { n.remove(); });
+                    if (greeting) { msgs.insertBefore(greeting, msgs.firstChild); greeting.hidden = false; }
+                });
+            });
         }
-        fab.addEventListener('click', function () { widget.hidden ? open() : close(); });
-        var closeBtn = document.getElementById('ai-close');
-        if (closeBtn) {
-            closeBtn.addEventListener('click', close);
-        }
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape' && !widget.hidden) { close(); }
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) { closePanel(); } });
+        input.addEventListener('keydown', function (e) {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') { e.preventDefault(); form.requestSubmit(); }
         });
-
-        function bubble(cls, label) {
-            var d = document.createElement('div');
-            d.className = cls;
-            d.innerHTML = '<strong>' + label + ':</strong> ';
-            log.appendChild(d);
-            return d;
-        }
-        function scrollDown() { log.scrollTop = log.scrollHeight; }
 
         form.addEventListener('submit', function (e) {
             e.preventDefault();
-            var q = input.value.trim();
-            if (q === '') { return; }
-            var empty = document.getElementById('ai-widget-empty');
-            if (empty) { empty.remove(); }
+            if (sending) { return; }
+            var text = (input.value || '').trim();
+            if (!text) { return; }
 
-            var qb = bubble('chat__q', widget.dataset.you || '');
-            qb.appendChild(document.createTextNode(q));
-
-            var ab = bubble('chat__a', widget.dataset.assistant || '');
-            ab.innerHTML += '<span class="typing-dots"><span></span><span></span><span></span></span>';
-
+            appendBubble('user', text, false);
             input.value = '';
-            input.disabled = true;
-            if (btn) { btn.disabled = true; }
-            scrollDown();
+            sending = true;
+            var typing = appendTyping();
 
             var body = new URLSearchParams();
-            body.set('question', q);
+            body.set('question', text);
 
-            fetch(widget.dataset.ask, {
-                method: 'POST',
-                headers: { 'X-Requested-With': 'fetch' },
-                body: body
-            }).then(function (r) { return r.json(); }).then(function (data) {
-                if (data && data.ok) {
-                    ab.className = 'chat__a md';
-                    ab.innerHTML = '<strong>' + (widget.dataset.assistant || '') + ':</strong> ' + data.html;
-                } else {
-                    ab.innerHTML = '<strong>' + (widget.dataset.assistant || '') + ':</strong> ';
-                    ab.appendChild(document.createTextNode((data && data.error) || widget.dataset.error || 'Error'));
-                }
-            }).catch(function () {
-                ab.innerHTML = '<strong>' + (widget.dataset.assistant || '') + ':</strong> ';
-                ab.appendChild(document.createTextNode(widget.dataset.error || 'Error'));
-            }).finally(function () {
-                input.disabled = false;
-                if (btn) { btn.disabled = false; }
-                input.focus();
-                scrollDown();
-            });
+            fetch(askUrl, { method: 'POST', headers: { 'X-Requested-With': 'fetch' }, body: body })
+                .then(function (r) { return r.json(); })
+                .then(function (d) {
+                    typing.remove();
+                    if (d && d.ok && d.html) {
+                        appendBubble('assistant', d.html, true);
+                    } else {
+                        appendBubble('assistant', (d && d.error) || root.dataset.error, false);
+                    }
+                })
+                .catch(function () { typing.remove(); appendBubble('assistant', root.dataset.error || 'Error', false); })
+                .finally(function () { sending = false; input.focus(); });
         });
+
+        function openPanel() {
+            panel.hidden = false;
+            toggle.setAttribute('aria-expanded', 'true');
+            hydrate();
+            setTimeout(function () { input.focus(); scrollDown(); }, 0);
+        }
+        function closePanel() {
+            panel.hidden = true;
+            toggle.setAttribute('aria-expanded', 'false');
+        }
+        function setExpanded(on) {
+            root.classList.toggle('is-expanded', !!on);
+            if (expand) { expand.setAttribute('aria-pressed', on ? 'true' : 'false'); }
+            try { localStorage.setItem(expandKey, on ? '1' : '0'); } catch (e) {}
+        }
+
+        function hydrate() {
+            if (hydrated) { return; }
+            hydrated = true;
+            fetch(historyUrl, { headers: { 'Accept': 'application/json' } })
+                .then(function (r) { return r.json(); })
+                .then(function (d) {
+                    if (!d || !d.ok || !d.messages || !d.messages.length) { return; }
+                    if (greeting) { greeting.hidden = true; }
+                    d.messages.forEach(function (m) { appendBubble(m.role, m.html, true); });
+                    scrollDown();
+                })
+                .catch(function () {});
+        }
+
+        function appendBubble(role, content, isHtml) {
+            if (greeting) { greeting.hidden = true; }
+            var div = document.createElement('div');
+            div.className = 'copilot__msg copilot__msg--' + role + (role === 'assistant' ? ' md' : '');
+            if (isHtml) { div.innerHTML = content; } else { div.textContent = content; }
+            msgs.appendChild(div);
+            scrollDown();
+            return div;
+        }
+        function appendTyping() {
+            if (greeting) { greeting.hidden = true; }
+            var b = document.createElement('div');
+            b.className = 'copilot__msg copilot__msg--assistant copilot__typing';
+            b.innerHTML = '<span class="copilot__dots"><span></span><span></span><span></span></span>';
+            msgs.appendChild(b);
+            scrollDown();
+            return b;
+        }
+        function scrollDown() { msgs.scrollTop = msgs.scrollHeight; }
     }
 
     if (document.readyState === 'loading') {

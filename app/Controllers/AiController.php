@@ -266,6 +266,20 @@ final class AiController
         redirect('/ai/chat');
     }
 
+    /** Historial del xat per al copilot flotant (JSON amb HTML segur). */
+    public function history_json(): void
+    {
+        Guard::requireAuth();
+        header('Content-Type: application/json; charset=utf-8');
+        $messages = [];
+        foreach (($_SESSION['ai_chat'] ?? []) as $t) {
+            $messages[] = ['role' => 'user', 'html' => e((string) $t['q'])];
+            $messages[] = ['role' => 'assistant', 'html' => \App\Support\Markdown::render((string) $t['a'])];
+        }
+        echo json_encode(['ok' => true, 'messages' => $messages], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
     /** Xat asíncron (widget flotant). Retorna JSON amb la resposta en HTML segur. */
     public function ask_json(): void
     {

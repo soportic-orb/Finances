@@ -103,6 +103,7 @@ return static function (Router $router): void {
     $router->get('/ai/chat', [AiController::class, 'chat']);
     $router->post('/ai/chat', [AiController::class, 'ask']);
     $router->post('/ai/chat/ask', [AiController::class, 'ask_json']);
+    $router->get('/ai/chat/history', [AiController::class, 'history_json']);
     $router->post('/ai/chat/clear', [AiController::class, 'clearChat']);
     $router->get('/ai/settings', [AiController::class, 'settings']);
     $router->post('/ai/settings', [AiController::class, 'saveSettings']);

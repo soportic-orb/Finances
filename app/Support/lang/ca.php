@@ -462,6 +462,17 @@ return [
     'ai.close'           => 'Tanca',
     'ai.fullpage'        => 'Obre a pantalla completa',
     'ai.widget_error'    => 'No s\'ha pogut obtenir la resposta. Torna-ho a provar.',
+    'copilot.title'      => 'Assistent financer',
+    'copilot.subtitle'   => 'Pregunta sobre les vostres finances (dades agregades)',
+    'copilot.greeting'   => 'Hola! Pregunta\'m el que vulguis sobre les finances de la llar: despeses, estalvi, pressupostos, subscripcions…',
+    'copilot.toggle'     => 'Obre l\'assistent financer',
+    'copilot.clear'      => 'Neteja la conversa',
+    'copilot.expand'     => 'Amplia / redueix',
+    'copilot.close'      => 'Tanca',
+    'copilot.placeholder' => 'Escriu la teva pregunta…  (Ctrl/Cmd+Enter per enviar)',
+    'copilot.send'       => 'Envia',
+    'copilot.clear_confirm' => 'Vols esborrar tota la conversa?',
+    'copilot.error'      => 'No s\'ha pogut obtenir la resposta. Torna-ho a provar.',
 
     // Manteniment
     'maint.title'       => 'Manteniment en curs',

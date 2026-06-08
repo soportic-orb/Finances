@@ -458,6 +458,17 @@ return [
     'ai.close'           => 'Cerrar',
     'ai.fullpage'        => 'Abrir a pantalla completa',
     'ai.widget_error'    => 'No se ha podido obtener la respuesta. Inténtalo de nuevo.',
+    'copilot.title'      => 'Asistente financiero',
+    'copilot.subtitle'   => 'Pregunta sobre vuestras finanzas (datos agregados)',
+    'copilot.greeting'   => '¡Hola! Pregúntame lo que quieras sobre las finanzas del hogar: gastos, ahorro, presupuestos, suscripciones…',
+    'copilot.toggle'     => 'Abrir el asistente financiero',
+    'copilot.clear'      => 'Limpiar la conversación',
+    'copilot.expand'     => 'Ampliar / reducir',
+    'copilot.close'      => 'Cerrar',
+    'copilot.placeholder' => 'Escribe tu pregunta…  (Ctrl/Cmd+Enter para enviar)',
+    'copilot.send'       => 'Enviar',
+    'copilot.clear_confirm' => '¿Quieres borrar toda la conversación?',
+    'copilot.error'      => 'No se ha podido obtener la respuesta. Inténtalo de nuevo.',
 
     // Mantenimiento
     'maint.title'       => 'Mantenimiento en curso',

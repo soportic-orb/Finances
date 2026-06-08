@@ -54,27 +54,65 @@ $u = Auth::user();
     </main>
 
     <?php if ($u): ?>
-        <!-- Xat financer flotant (disponible a totes les pàgines) -->
-        <button class="aifab" id="ai-fab" type="button" aria-label="<?= e(__('ai.open_chat')) ?>" aria-expanded="false" title="<?= e(__('ai.open_chat')) ?>">💬</button>
-        <div class="aiwidget" id="ai-widget" hidden
+        <!-- Copilot financer: xat d'IA flotant disponible a totes les pàgines -->
+        <div class="copilot" id="copilot"
              data-ask="<?= e(url('/ai/chat/ask')) ?>"
+             data-history="<?= e(url('/ai/chat/history')) ?>"
+             data-clear="<?= e(url('/ai/chat/clear')) ?>"
+             data-expand-key="finances.copilot.expanded"
              data-you="<?= e(__('ai.you')) ?>"
              data-assistant="<?= e(__('ai.assistant')) ?>"
-             data-error="<?= e(__('ai.widget_error')) ?>">
-            <div class="aiwidget__head">
-                <span class="aiwidget__title">🤖 <?= e(__('ai.chat_title')) ?></span>
-                <span class="aiwidget__actions">
-                    <a href="<?= e(url('/ai/chat')) ?>" class="aiwidget__btn" title="<?= e(__('ai.fullpage')) ?>" aria-label="<?= e(__('ai.fullpage')) ?>">⤢</a>
-                    <button type="button" class="aiwidget__btn" id="ai-close" title="<?= e(__('ai.close')) ?>" aria-label="<?= e(__('ai.close')) ?>">✕</button>
-                </span>
-            </div>
-            <div class="aiwidget__log chat" id="ai-widget-log">
-                <p class="muted" id="ai-widget-empty"><?= e(__('ai.chat_empty')) ?></p>
-            </div>
-            <form class="aiwidget__form" id="ai-widget-form" autocomplete="off">
-                <input name="question" placeholder="<?= e(__('ai.chat_ph')) ?>" required>
-                <button class="btn" type="submit"><?= e(__('ai.send')) ?></button>
-            </form>
+             data-error="<?= e(__('copilot.error')) ?>"
+             data-disabled="<?= e(__('ai.disabled')) ?>"
+             data-confirm="<?= e(__('copilot.clear_confirm')) ?>">
+            <button class="copilot__toggle" id="copilotToggle" type="button"
+                    aria-label="<?= e(__('copilot.toggle')) ?>" title="<?= e(__('copilot.toggle')) ?>"
+                    aria-expanded="false" aria-controls="copilotPanel">
+                <svg class="copilot__toggle-icon" viewBox="0 0 24 24" width="24" height="24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="4" y="8" width="16" height="11" rx="2"></rect>
+                    <path d="M12 8V4"></path><circle cx="12" cy="3" r="1"></circle>
+                    <path d="M2 13v2"></path><path d="M22 13v2"></path>
+                    <circle cx="9" cy="13" r="1"></circle><circle cx="15" cy="13" r="1"></circle>
+                    <path d="M9.5 16.5h5"></path>
+                </svg>
+            </button>
+            <section class="copilot__panel" id="copilotPanel" hidden aria-label="<?= e(__('copilot.title')) ?>">
+                <header class="copilot__head">
+                    <div>
+                        <h2 class="copilot__title">🤖 <?= e(__('copilot.title')) ?></h2>
+                        <p class="copilot__subtitle"><?= e(__('copilot.subtitle')) ?></p>
+                    </div>
+                    <div class="copilot__head-actions">
+                        <button type="button" class="copilot__icon-btn" id="copilotClear" title="<?= e(__('copilot.clear')) ?>" aria-label="<?= e(__('copilot.clear')) ?>">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path>
+                            </svg>
+                        </button>
+                        <button type="button" class="copilot__icon-btn" id="copilotExpand" title="<?= e(__('copilot.expand')) ?>" aria-label="<?= e(__('copilot.expand')) ?>" aria-pressed="false">
+                            <svg class="copilot__icon-expand" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line>
+                            </svg>
+                            <svg class="copilot__icon-collapse" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <polyline points="4 14 10 14 10 20"></polyline><polyline points="20 10 14 10 14 4"></polyline><line x1="14" y1="10" x2="21" y2="3"></line><line x1="3" y1="21" x2="10" y2="14"></line>
+                            </svg>
+                        </button>
+                        <button type="button" class="copilot__icon-btn" id="copilotClose" title="<?= e(__('copilot.close')) ?>" aria-label="<?= e(__('copilot.close')) ?>">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <line x1="6" y1="6" x2="18" y2="18"></line><line x1="6" y1="18" x2="18" y2="6"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </header>
+                <div class="copilot__messages" id="copilotMessages" aria-live="polite">
+                    <div class="copilot__greeting" id="copilotGreeting"><p><?= e(__('copilot.greeting')) ?></p></div>
+                </div>
+                <form class="copilot__form" id="copilotForm">
+                    <textarea class="copilot__input" id="copilotInput" name="question" rows="2"
+                              placeholder="<?= e(__('copilot.placeholder')) ?>" required></textarea>
+                    <button class="btn" type="submit"><?= e(__('copilot.send')) ?></button>
+                </form>
+            </section>
         </div>
     <?php endif; ?>
 
