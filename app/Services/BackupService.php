@@ -43,10 +43,16 @@ final class BackupService
     /** Bolca tota la BD a la ruta indicada (PHP pur, sense mysqldump). */
     public function dumpDatabase(string $file): void
     {
+        if (!is_dir($this->backupDir) || !is_writable($this->backupDir)) {
+            throw new \RuntimeException(
+                'El directori de backups no és escrivible: ' . $this->backupDir
+                . '. Revisa la propietat/permisos (l\'usuari de PHP hi ha de poder escriure).'
+            );
+        }
         $pdo = DB::connection();
-        $fh = fopen($file, 'w');
+        $fh = @fopen($file, 'w');
         if ($fh === false) {
-            throw new \RuntimeException('No s\'ha pogut crear el fitxer de backup de BD.');
+            throw new \RuntimeException('No s\'ha pogut crear el fitxer de backup de BD a ' . $this->backupDir . ' (permisos?).');
         }
 
         fwrite($fh, "-- Backup " . date('c') . "\nSET FOREIGN_KEY_CHECKS=0;\n");
