@@ -198,6 +198,7 @@ return [
     'eb.invalid_appid'  => 'Application ID no vàlid.',
     'eb.invalid_pem'    => 'El fitxer .pem no és una clau privada RSA vàlida.',
     'eb.invalid_bank'   => 'Selecció de banc no vàlida o configuració incompleta.',
+    'eb.missing_redirect' => 'Cal configurar la URL de callback a Configuració d\'Enable Banking abans de vincular un banc.',
     'eb.auth_failed'    => 'No s\'ha pogut iniciar l\'autorització.',
     'eb.session_failed' => 'No s\'ha pogut crear la sessió.',
     'eb.bad_state'      => 'Paràmetres de callback no vàlids (state).',

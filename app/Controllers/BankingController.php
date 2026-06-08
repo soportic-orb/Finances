@@ -135,6 +135,11 @@ final class BankingController
             flash('eb_error', __('eb.invalid_bank'));
             redirect('/banking');
         }
+        // La URL de callback és obligatòria per a /auth.
+        if (trim($eb->redirectUrl()) === '') {
+            flash('eb_error', __('eb.missing_redirect'));
+            redirect('/banking/settings');
+        }
 
         $state = uuid4();
         $validUntil = (new \DateTime('+89 days'))->format('Y-m-d\TH:i:s.v\Z');
@@ -148,7 +153,10 @@ final class BankingController
                 header('Location: ' . $resp['json']['url']);
                 exit;
             }
-            flash('eb_error', __('eb.auth_failed') . ' (' . $resp['status'] . ')');
+            // Diagnòstic: registra l'error i mostra un resum (sense secrets).
+            $detail = $this->ebError($resp);
+            error_log('[eb_auth] aspsp=' . $aspspName . ' status=' . $resp['status'] . ' body=' . substr((string) ($resp['body'] ?? ''), 0, 500));
+            flash('eb_error', __('eb.auth_failed') . ' (' . $resp['status'] . ') ' . $detail);
         } catch (\Throwable $e) {
             flash('eb_error', $e->getMessage());
         }
@@ -191,6 +199,21 @@ final class BankingController
             flash('eb_error', $e->getMessage());
         }
         redirect('/banking');
+    }
+
+    /** Extreu un missatge llegible d'una resposta d'error d'Enable Banking. @param array<string,mixed> $resp */
+    private function ebError(array $resp): string
+    {
+        $j = $resp['json'] ?? null;
+        if (is_array($j)) {
+            foreach (['message', 'error', 'detail', 'error_description', 'code'] as $k) {
+                if (!empty($j[$k]) && is_string($j[$k])) {
+                    return mb_substr($j[$k], 0, 200);
+                }
+            }
+        }
+        $body = trim((string) ($resp['body'] ?? ''));
+        return $body !== '' ? mb_substr($body, 0, 200) : '';
     }
 
     public function sync(array $params): void
