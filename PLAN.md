@@ -126,8 +126,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 13 — Polit 🔄
-**Objectiu:** acabats. *(Implementada; pendent de validació.)*
+## Fase 13 — Polit ✅
+**Objectiu:** acabats.
 - i18n complet (ca per defecte + es), accessibilitat.
 - README intern (privat, sense orientació open-source), avisos de privacitat de la llar.
 - Revisió de seguretat i de `.gitignore` (secrets/keys exclosos).
