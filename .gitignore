@@ -1,0 +1,28 @@
+# Configuració i secrets (mai a Git)
+/config/config.php
+/config/keys/
+*.pem
+*.env
+.env
+
+# Emmagatzematge en temps d'execució
+/storage/logs/*
+/storage/cache/*
+/storage/exports/*
+/storage/backups/*
+!/storage/**/.gitkeep
+
+# Dependències
+/vendor/
+/node_modules/
+
+# Instal·lador finalitzat
+/install/.lock
+
+# Sistema operatiu / editors
+.DS_Store
+Thumbs.db
+*.swp
+*.log
+.idea/
+.vscode/

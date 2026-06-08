@@ -1,0 +1,19 @@
+# Front controller: redirigeix tot a index.php tret de fitxers existents.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # No reescriguis fitxers ni directoris existents (assets).
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# Evita el llistat de directoris.
+Options -Indexes
+
+# Bloqueja accés a fitxers sensibles.
+<FilesMatch "\.(pem|env|sql|md|json|lock)$">
+    Require all denied
+</FilesMatch>

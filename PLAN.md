@@ -7,7 +7,7 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 1 — Bastida ⬜
+## Fase 1 — Bastida ✅
 **Objectiu:** esquelet tècnic funcional.
 - Estructura MVC (router, controllers, models, views), capa `Support` (DB/PDO, Csrf, Crypto, Auth, Validator).
 - Sistema de migracions versionades + `VERSION` (semver).
@@ -18,7 +18,7 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 2 — Instal·lador web ⬜
+## Fase 2 — Instal·lador web ✅
 **Objectiu:** instal·lació guiada i aïllada.
 - Passos: requisits → BD + prova → migracions/seeds → llar + propietari → dades bàsiques (moneda, zona, idioma=ca) → generació `config.php`/`APP_KEY` → finalització.
 - Seeds de categories per defecte en català.
@@ -28,7 +28,7 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 3 — Auth + llar multi-usuari + panell ⬜
+## Fase 3 — Auth + llar multi-usuari + panell ✅
 **Objectiu:** accés segur i gestió de la llar.
 - Login, sessions segures, límit d'intents; **2FA TOTP opcional**.
 - Rols owner/member; alta/gestió de membres per l'owner.
@@ -38,7 +38,7 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 4 — Comptes + transaccions ⬜
+## Fase 4 — Comptes + transaccions ✅
 **Objectiu:** nucli financer manual.
 - CRUD de comptes (tipus, divisa, propietari/membre, arxivat), saldo recalculat.
 - CRUD de transaccions, traspassos (`transfer_group_id`), filtres (dates/categoria/compte/membre/text/import), notes/etiquetes.
@@ -48,7 +48,7 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 5 — Integració Enable Banking ⬜
+## Fase 5 — Integració Enable Banking ✅
 **Objectiu:** connexió bancària en viu (nucli).
 - `EnableBankingService`: JWT RS256 (kid=application_id), `.pem` a `/config/keys` 0600, entorn configurable, cache de token.
 - `GET /aspsps?country=ES`; flux `POST /auth` → callback (`code`/`state`) → `POST /sessions`; persistència immediata (`eb_*`).
@@ -60,7 +60,7 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 6 — Categories + regles ⬜
+## Fase 6 — Categories + regles ✅
 **Objectiu:** classificació determinista.
 - Categories jeràrquiques editables; `rules` (conté/regex/exacte) per descripció/comerç/contrapart/import, amb prioritat.
 - Aplicació de regles en ingesta i sota demanda; recategorització massiva.
@@ -69,7 +69,7 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 7 — Importació de fitxers ⬜
+## Fase 7 — Importació de fitxers ✅
 **Objectiu:** històric i bancs no coberts.
 - Parser **Norma 43 (Quadern 43 AEB/CSB)** prioritari.
 - **CSV** amb mapatge de columnes configurable, desat com a plantilla per banc; previsualització + dedup.
@@ -79,7 +79,7 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 8 — Pressupostos + objectius + recurrents ⬜
+## Fase 8 — Pressupostos + objectius + recurrents ✅
 **Objectiu:** eines de control i estalvi.
 - Pressupostos per categoria/període amb alertes (80%/100%) i rollover.
 - Objectius d'estalvi amb progrés i quota mensual estimada.
@@ -89,8 +89,8 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 9 — Dashboard + informes ⬜
-**Objectiu:** visió i exportació.
+## Fase 9 — Dashboard + informes ✅
+**Objectiu:** visió i exportació. *(Gràfics SVG autoallotjats al servidor.)*
 - Resum mensual (ingressos/despeses, taxa d'estalvi, top categories, per membre).
 - Gràfics: donut per categoria, evolució mensual, patrimoni net en el temps.
 - Exportació CSV/Excel + informe PDF mensual.
@@ -99,7 +99,7 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 10 — Capa d'IA ⬜
+## Fase 10 — Capa d'IA ✅
 **Objectiu:** anàlisi i assistència amb Claude.
 - `AiService` (clau xifrada, model per tasca, reintents, `ai_jobs`).
 - Categorització IA (JSON estricte) com a complement de regles; anàlisi mensual a `ai_insights`; recomanacions d'estalvi; detecció d'anomalies; **xat en llenguatge natural**.
@@ -109,7 +109,7 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 11 — Actualitzacions OTA via Git ⬜
+## Fase 11 — Actualitzacions OTA via Git ✅
 **Objectiu:** autoactualització segura (com SysRevAI).
 - `UpdateService` + `bin/update.php`: manteniment → backup BD i `/config` (inclou keys) → `git fetch`/`reset` → composer → migracions → assets → **rollback automàtic**.
 - Botó al panell + cron.
@@ -118,7 +118,7 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 12 — Migració de servidor ⬜
+## Fase 12 — Migració de servidor ✅
 **Objectiu:** portabilitat.
 - Export BD + fitxers (inclou `/config/keys`) en **ZIP xifrat** amb manifest + checksums; import des de l'instal·lador.
 
@@ -126,7 +126,7 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 13 — Polit ⬜
+## Fase 13 — Polit ✅
 **Objectiu:** acabats.
 - i18n complet (ca per defecte + es), accessibilitat.
 - README intern (privat, sense orientació open-source), avisos de privacitat de la llar.
