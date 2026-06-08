@@ -14,21 +14,22 @@ $active = 'chat';
         <a class="btn" href="<?= e(url('/ai/settings')) ?>"><?= e(__('ai.go_settings')) ?></a></div>
 <?php else: ?>
     <section class="card">
-        <?php if ($history === []): ?>
-            <p class="muted"><?= e(__('ai.chat_empty')) ?></p>
-        <?php else: ?>
-            <div class="chat">
+        <div class="chat" id="chat-log">
+            <?php if ($history === []): ?>
+                <p class="muted" id="chat-empty"><?= e(__('ai.chat_empty')) ?></p>
+            <?php else: ?>
                 <?php foreach ($history as $turn): ?>
                     <div class="chat__q"><strong><?= e(__('ai.you')) ?>:</strong> <?= e($turn['q']) ?></div>
                     <div class="chat__a md"><strong><?= e(__('ai.assistant')) ?>:</strong> <?= \App\Support\Markdown::render($turn['a']) ?></div>
                 <?php endforeach; ?>
-            </div>
-        <?php endif; ?>
+            <?php endif; ?>
+        </div>
 
-        <form method="post" action="<?= e(url('/ai/chat')) ?>" style="margin-top:1rem">
+        <form method="post" action="<?= e(url('/ai/chat')) ?>" style="margin-top:1rem"
+              data-chat data-assistant="<?= e(__('ai.assistant')) ?>" data-you="<?= e(__('ai.you')) ?>">
             <?= csrf_field() ?>
             <div class="inline-add">
-                <input name="question" placeholder="<?= e(__('ai.chat_ph')) ?>" autofocus>
+                <input name="question" placeholder="<?= e(__('ai.chat_ph')) ?>" autofocus required>
                 <button class="btn" type="submit"><?= e(__('ai.send')) ?></button>
             </div>
         </form>
