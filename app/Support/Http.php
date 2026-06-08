@@ -43,11 +43,11 @@ final class Http
         $raw = curl_exec($ch);
         if ($raw === false) {
             $err = curl_error($ch);
-            curl_close($ch);
+            unset($ch); // curl_close() és obsolet des de PHP 8.0; el handle es allibera sol
             throw new \RuntimeException('Error de connexió HTTP: ' . $err);
         }
         $status = (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
-        curl_close($ch);
+        unset($ch);
 
         $bodyStr = (string) $raw;
         $json = null;
