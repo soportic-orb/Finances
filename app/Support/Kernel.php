@@ -70,7 +70,9 @@ final class Kernel
             . "font-src 'self'; "
             . "connect-src 'self'; "
             . "base-uri 'self'; "
-            . "form-action 'self'; "
+            // 'self' + https: per permetre la redirecció OAuth/PSD2 cap a la
+            // pàgina de consentiment del banc (Enable Banking) després del POST.
+            . "form-action 'self' https:; "
             . "frame-ancestors 'none'"
         );
     }

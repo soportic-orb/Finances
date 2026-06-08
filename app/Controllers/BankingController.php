@@ -27,6 +27,16 @@ final class BankingController
         return new EnableBankingService((int) Auth::householdId());
     }
 
+    /** Registre de diagnòstic d'Enable Banking (sense secrets). */
+    private function log(string $msg): void
+    {
+        @file_put_contents(
+            BASE_PATH . '/storage/logs/eb.log',
+            '[' . date('c') . '] ' . $msg . "\n",
+            FILE_APPEND
+        );
+    }
+
     public function index(): void
     {
         Guard::requireOwner();
@@ -131,6 +141,9 @@ final class BankingController
         $eb = $this->service();
 
         $aspspName = trim($_POST['aspsp_name'] ?? '');
+        $this->log("startLink: aspsp='$aspspName' configured=" . ($eb->isConfigured() ? '1' : '0')
+            . " redirect='" . $eb->redirectUrl() . "' env=" . $eb->environment());
+
         if ($aspspName === '' || !$eb->isConfigured()) {
             flash('eb_error', __('eb.invalid_bank'));
             redirect('/banking');
@@ -146,18 +159,22 @@ final class BankingController
 
         try {
             $resp = $eb->startAuthorization($aspspName, 'ES', $validUntil, $state);
+            $this->log("startAuthorization: status=" . $resp['status']
+                . " hasUrl=" . (!empty($resp['json']['url']) ? '1' : '0')
+                . " body=" . substr((string) ($resp['body'] ?? ''), 0, 400));
+
             if ($resp['status'] >= 200 && $resp['status'] < 300 && !empty($resp['json']['url'])) {
                 $authId = EbAuthorization::create($hid, Auth::id(), $aspspName, 'ES', $state);
                 EbAuthorization::update($authId, (string) ($resp['json']['authorization_id'] ?? ''), 'redirected', null);
                 AuditLog::record('eb_auth_started', 'eb_authorization', $authId, $aspspName);
+                $this->log("redirect cap a consentiment OK");
                 header('Location: ' . $resp['json']['url']);
                 exit;
             }
-            // Diagnòstic: registra l'error i mostra un resum (sense secrets).
             $detail = $this->ebError($resp);
-            error_log('[eb_auth] aspsp=' . $aspspName . ' status=' . $resp['status'] . ' body=' . substr((string) ($resp['body'] ?? ''), 0, 500));
             flash('eb_error', __('eb.auth_failed') . ' (' . $resp['status'] . ') ' . $detail);
         } catch (\Throwable $e) {
+            $this->log("EXCEPCIÓ startAuthorization: " . $e->getMessage());
             flash('eb_error', $e->getMessage());
         }
         redirect('/banking');
