@@ -198,6 +198,7 @@ return [
     'eb.invalid_appid'  => 'Application ID no válido.',
     'eb.invalid_pem'    => 'El archivo .pem no es una clave privada RSA válida.',
     'eb.invalid_bank'   => 'Selección de banco no válida o configuración incompleta.',
+    'eb.missing_redirect' => 'Hay que configurar la URL de callback en Configuración de Enable Banking antes de vincular un banco.',
     'eb.auth_failed'    => 'No se pudo iniciar la autorización.',
     'eb.session_failed' => 'No se pudo crear la sesión.',
     'eb.bad_state'      => 'Parámetros de callback no válidos (state).',
