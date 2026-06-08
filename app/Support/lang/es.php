@@ -36,6 +36,11 @@ return [
 
     'nav.members'       => 'Miembros',
     'nav.banking'       => 'Banco',
+    'nav.finances'      => 'Finanzas',
+    'nav.classification' => 'Clasificación',
+    'nav.analysis'      => 'Análisis',
+    'nav.updates'       => 'Actualizaciones',
+    'nav.user_menu'     => 'Menú de usuario',
     'nav.categories'    => 'Categorías',
     'nav.rules'         => 'Reglas',
     'nav.import'        => 'Importar',

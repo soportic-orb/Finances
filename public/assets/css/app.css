@@ -55,13 +55,6 @@ body {
     font-size: 1.1rem;
 }
 
-.nav a {
-    color: var(--muted);
-    text-decoration: none;
-    margin-left: 1rem;
-}
-.nav a:hover { color: var(--text); }
-
 main.container { padding-top: 2rem; padding-bottom: 2rem; }
 
 .card {
@@ -142,8 +135,39 @@ main.container { padding-top: 2rem; padding-bottom: 2rem; }
 :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 
 /* Navegació autenticada */
-.nav { display: flex; align-items: center; gap: 1rem; }
-.nav__user { color: var(--muted); font-size: .85rem; }
+/* Navegació amb submenús desplegables i icones */
+.nav { display: flex; align-items: center; gap: .15rem; flex-wrap: wrap; }
+.nav__link, .nav__btn {
+    display: inline-flex; align-items: center; gap: .35rem;
+    color: var(--muted); text-decoration: none; background: none; border: 0;
+    cursor: pointer; font: inherit; padding: .4rem .55rem; border-radius: 8px; white-space: nowrap;
+}
+.nav__link:hover, .nav__btn:hover { color: var(--text); background: rgba(255,255,255,.06); }
+.nav__link.active, .nav__btn.active { color: var(--text); background: rgba(79,140,255,.16); }
+.nav__ico { font-size: 1rem; line-height: 1; }
+.nav__caret { font-size: .65rem; opacity: .7; }
+
+.nav__group { position: relative; }
+.nav__group--right { margin-left: auto; }
+.nav__menu {
+    position: absolute; top: 100%; left: 0; margin-top: 4px; min-width: 190px; z-index: 70;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.5); padding: .3rem; display: none;
+}
+.nav__menu--right { left: auto; right: 0; }
+.nav__group.open .nav__menu { display: block; }
+.nav__menu a, .nav__logout {
+    display: flex; align-items: center; gap: .55rem; width: 100%;
+    color: var(--text); text-decoration: none; padding: .45rem .6rem; border-radius: 7px;
+    background: none; border: 0; cursor: pointer; font: inherit; text-align: left; white-space: nowrap;
+}
+.nav__menu a:hover, .nav__logout:hover { background: rgba(255,255,255,.08); }
+.nav__menu form { margin: 0; }
+.nav__meta {
+    display: block; padding: .35rem .6rem .45rem; color: var(--muted); font-size: .78rem;
+    border-bottom: 1px solid var(--border); margin-bottom: .2rem;
+}
+.nav__user-btn { max-width: 200px; }
 .linkbtn {
     background: none; border: 0; color: var(--muted);
     cursor: pointer; font: inherit; padding: 0;

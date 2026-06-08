@@ -28,6 +28,52 @@
 })();
 
 /*
+ * Submenús desplegables de la navegació. Clic per obrir/tancar; es tanca en
+ * clicar fora o amb Esc. Accessible (aria-expanded).
+ */
+(function () {
+    'use strict';
+
+    function init() {
+        var groups = document.querySelectorAll('.nav__group');
+        if (!groups.length) {
+            return;
+        }
+        function closeAll(except) {
+            groups.forEach(function (g) {
+                if (g !== except) {
+                    g.classList.remove('open');
+                    var b = g.querySelector('.nav__btn');
+                    if (b) { b.setAttribute('aria-expanded', 'false'); }
+                }
+            });
+        }
+        groups.forEach(function (g) {
+            var btn = g.querySelector('.nav__btn');
+            if (!btn) { return; }
+            btn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var willOpen = !g.classList.contains('open');
+                closeAll(g);
+                g.classList.toggle('open', willOpen);
+                btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+            });
+            // Evita que un clic dins del menú el tanqui abans de navegar.
+            var menu = g.querySelector('.nav__menu');
+            if (menu) { menu.addEventListener('click', function (e) { e.stopPropagation(); }); }
+        });
+        document.addEventListener('click', function () { closeAll(null); });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeAll(null); } });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+
+/*
  * Indicador "escrivint…" al xat d'IA: en enviar la pregunta, mostra la pregunta
  * i tres punts saltarins mentre s'espera la resposta (la pàgina es recarrega amb
  * la resposta final).

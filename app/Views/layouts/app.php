@@ -5,6 +5,16 @@ use App\Support\Csrf;
 use App\Support\Lang;
 
 $u = Auth::user();
+$cur = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+/** Retorna ' active' si la ruta actual coincideix amb alguna de les donades. */
+$navActive = static function (string ...$paths) use ($cur): string {
+    foreach ($paths as $p) {
+        if ($cur === $p || str_starts_with($cur, rtrim($p, '/') . '/')) {
+            return ' active';
+        }
+    }
+    return '';
+};
 ?>
 <!DOCTYPE html>
 <html lang="<?= e(Lang::locale()) ?>">
@@ -24,26 +34,65 @@ $u = Auth::user();
             <a class="brand" href="<?= e(url('/dashboard')) ?>"><?= e(__('app.name')) ?></a>
             <?php if ($u): ?>
                 <nav class="nav" aria-label="<?= e(__('a11y.nav')) ?>">
-                    <a href="<?= e(url('/dashboard')) ?>"><?= e(__('nav.dashboard')) ?></a>
-                    <a href="<?= e(url('/accounts')) ?>"><?= e(__('nav.accounts')) ?></a>
-                    <a href="<?= e(url('/transactions')) ?>"><?= e(__('nav.transactions')) ?></a>
-                    <a href="<?= e(url('/categories')) ?>"><?= e(__('nav.categories')) ?></a>
-                    <a href="<?= e(url('/budgets')) ?>"><?= e(__('nav.planning')) ?></a>
-                    <a href="<?= e(url('/reports/monthly')) ?>"><?= e(__('nav.reports')) ?></a>
-                    <a href="<?= e(url('/ai/analysis')) ?>"><?= e(__('nav.ai')) ?></a>
-                    <a href="<?= e(url('/rules')) ?>"><?= e(__('nav.rules')) ?></a>
-                    <a href="<?= e(url('/import')) ?>"><?= e(__('nav.import')) ?></a>
+                    <a class="nav__link<?= $navActive('/dashboard') ?>" href="<?= e(url('/dashboard')) ?>">
+                        <span class="nav__ico">📊</span> <?= e(__('nav.dashboard')) ?></a>
+
+                    <div class="nav__group">
+                        <button class="nav__btn<?= $navActive('/accounts', '/transactions', '/import') ?>" type="button" aria-haspopup="true" aria-expanded="false">
+                            <span class="nav__ico">💼</span> <?= e(__('nav.finances')) ?> <span class="nav__caret">▾</span></button>
+                        <div class="nav__menu">
+                            <a href="<?= e(url('/accounts')) ?>"><span class="nav__ico">🏦</span> <?= e(__('nav.accounts')) ?></a>
+                            <a href="<?= e(url('/transactions')) ?>"><span class="nav__ico">🔁</span> <?= e(__('nav.transactions')) ?></a>
+                            <a href="<?= e(url('/import')) ?>"><span class="nav__ico">📥</span> <?= e(__('nav.import')) ?></a>
+                        </div>
+                    </div>
+
+                    <div class="nav__group">
+                        <button class="nav__btn<?= $navActive('/categories', '/rules') ?>" type="button" aria-haspopup="true" aria-expanded="false">
+                            <span class="nav__ico">🏷️</span> <?= e(__('nav.classification')) ?> <span class="nav__caret">▾</span></button>
+                        <div class="nav__menu">
+                            <a href="<?= e(url('/categories')) ?>"><span class="nav__ico">🗂️</span> <?= e(__('nav.categories')) ?></a>
+                            <a href="<?= e(url('/rules')) ?>"><span class="nav__ico">⚖️</span> <?= e(__('nav.rules')) ?></a>
+                        </div>
+                    </div>
+
+                    <a class="nav__link<?= $navActive('/budgets', '/goals', '/recurring') ?>" href="<?= e(url('/budgets')) ?>">
+                        <span class="nav__ico">🎯</span> <?= e(__('nav.planning')) ?></a>
+
+                    <div class="nav__group">
+                        <button class="nav__btn<?= $navActive('/reports', '/ai') ?>" type="button" aria-haspopup="true" aria-expanded="false">
+                            <span class="nav__ico">📈</span> <?= e(__('nav.analysis')) ?> <span class="nav__caret">▾</span></button>
+                        <div class="nav__menu">
+                            <a href="<?= e(url('/reports/monthly')) ?>"><span class="nav__ico">📄</span> <?= e(__('nav.reports')) ?></a>
+                            <a href="<?= e(url('/ai/analysis')) ?>"><span class="nav__ico">🤖</span> <?= e(__('nav.ai')) ?></a>
+                        </div>
+                    </div>
+
                     <?php if (Auth::isOwner()): ?>
-                        <a href="<?= e(url('/banking')) ?>"><?= e(__('nav.banking')) ?></a>
-                        <a href="<?= e(url('/members')) ?>"><?= e(__('nav.members')) ?></a>
-                        <a href="<?= e(url('/update')) ?>"><?= e(__('nav.system')) ?></a>
+                        <a class="nav__link<?= $navActive('/banking') ?>" href="<?= e(url('/banking')) ?>">
+                            <span class="nav__ico">🏛️</span> <?= e(__('nav.banking')) ?></a>
+                        <div class="nav__group">
+                            <button class="nav__btn<?= $navActive('/members', '/update') ?>" type="button" aria-haspopup="true" aria-expanded="false">
+                                <span class="nav__ico">🛠️</span> <?= e(__('nav.system')) ?> <span class="nav__caret">▾</span></button>
+                            <div class="nav__menu">
+                                <a href="<?= e(url('/members')) ?>"><span class="nav__ico">👥</span> <?= e(__('nav.members')) ?></a>
+                                <a href="<?= e(url('/update')) ?>"><span class="nav__ico">🔄</span> <?= e(__('nav.updates')) ?></a>
+                            </div>
+                        </div>
                     <?php endif; ?>
-                    <a href="<?= e(url('/settings')) ?>"><?= e(__('nav.settings')) ?></a>
-                    <span class="nav__user"><?= e($u['name']) ?> · <?= e(__('role.' . $u['role'])) ?></span>
-                    <form method="post" action="<?= e(url('/logout')) ?>" style="display:inline">
-                        <?= csrf_field() ?>
-                        <button class="linkbtn" type="submit"><?= e(__('nav.logout')) ?></button>
-                    </form>
+
+                    <div class="nav__group nav__group--right">
+                        <button class="nav__btn nav__user-btn<?= $navActive('/settings') ?>" type="button" aria-haspopup="true" aria-expanded="false" aria-label="<?= e(__('nav.user_menu')) ?>">
+                            <span class="nav__ico">👤</span> <?= e($u['name']) ?> <span class="nav__caret">▾</span></button>
+                        <div class="nav__menu nav__menu--right">
+                            <span class="nav__meta"><?= e(__('role.' . $u['role'])) ?></span>
+                            <a href="<?= e(url('/settings')) ?>"><span class="nav__ico">⚙️</span> <?= e(__('nav.settings')) ?></a>
+                            <form method="post" action="<?= e(url('/logout')) ?>">
+                                <?= csrf_field() ?>
+                                <button class="nav__logout" type="submit"><span class="nav__ico">🚪</span> <?= e(__('nav.logout')) ?></button>
+                            </form>
+                        </div>
+                    </div>
                 </nav>
             <?php endif; ?>
         </div>
