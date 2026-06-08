@@ -29,7 +29,7 @@ $active = 'analysis';
     <section class="card">
         <p class="muted"><?= e(__('ai.generated_on')) ?> <?= e($insight['created_at']) ?> · <?= e($insight['period']) ?></p>
         <h2 class="card__subtitle"><?= e(__('ai.summary')) ?></h2>
-        <p><?= nl2br(e($insight['summary'])) ?></p>
+        <div class="md"><?= \App\Support\Markdown::render($insight['summary']) ?></div>
 
         <?php if ($recs !== []): ?>
             <h2 class="card__subtitle"><?= e(__('ai.recommendations')) ?></h2>

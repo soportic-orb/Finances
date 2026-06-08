@@ -20,7 +20,7 @@ $active = 'chat';
             <div class="chat">
                 <?php foreach ($history as $turn): ?>
                     <div class="chat__q"><strong><?= e(__('ai.you')) ?>:</strong> <?= e($turn['q']) ?></div>
-                    <div class="chat__a"><strong><?= e(__('ai.assistant')) ?>:</strong> <?= nl2br(e($turn['a'])) ?></div>
+                    <div class="chat__a md"><strong><?= e(__('ai.assistant')) ?>:</strong> <?= \App\Support\Markdown::render($turn['a']) ?></div>
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
