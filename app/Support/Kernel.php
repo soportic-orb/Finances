@@ -93,6 +93,11 @@ final class Kernel
             if (!(error_reporting() & $severity)) {
                 return false;
             }
+            // Les obsolescències i avisos no han de trencar el flux: només es registren.
+            if ($severity & (E_DEPRECATED | E_USER_DEPRECATED | E_NOTICE | E_USER_NOTICE)) {
+                error_log("PHP $severity: $message a $file:$line");
+                return true;
+            }
             throw new \ErrorException($message, 0, $severity, $file, $line);
         });
     }
