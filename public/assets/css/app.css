@@ -44,8 +44,10 @@ body {
 .topbar__inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    height: 56px;
+    gap: .4rem .9rem;
+    flex-wrap: wrap;
+    min-height: 56px;
+    padding: .4rem 0;
 }
 
 .brand {
@@ -136,7 +138,7 @@ main.container { padding-top: 2rem; padding-bottom: 2rem; }
 
 /* Navegació autenticada */
 /* Navegació amb submenús desplegables i icones */
-.nav { display: flex; align-items: center; gap: .15rem; flex-wrap: wrap; }
+.nav { display: flex; align-items: center; gap: .15rem; flex-wrap: wrap; flex: 1 1 auto; }
 .nav__link, .nav__btn {
     display: inline-flex; align-items: center; gap: .35rem;
     color: var(--muted); text-decoration: none; background: none; border: 0;
