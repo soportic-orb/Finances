@@ -53,6 +53,31 @@ $u = Auth::user();
         <?= $content ?>
     </main>
 
+    <?php if ($u): ?>
+        <!-- Xat financer flotant (disponible a totes les pàgines) -->
+        <button class="aifab" id="ai-fab" type="button" aria-label="<?= e(__('ai.open_chat')) ?>" aria-expanded="false" title="<?= e(__('ai.open_chat')) ?>">💬</button>
+        <div class="aiwidget" id="ai-widget" hidden
+             data-ask="<?= e(url('/ai/chat/ask')) ?>"
+             data-you="<?= e(__('ai.you')) ?>"
+             data-assistant="<?= e(__('ai.assistant')) ?>"
+             data-error="<?= e(__('ai.widget_error')) ?>">
+            <div class="aiwidget__head">
+                <span class="aiwidget__title">🤖 <?= e(__('ai.chat_title')) ?></span>
+                <span class="aiwidget__actions">
+                    <a href="<?= e(url('/ai/chat')) ?>" class="aiwidget__btn" title="<?= e(__('ai.fullpage')) ?>" aria-label="<?= e(__('ai.fullpage')) ?>">⤢</a>
+                    <button type="button" class="aiwidget__btn" id="ai-close" title="<?= e(__('ai.close')) ?>" aria-label="<?= e(__('ai.close')) ?>">✕</button>
+                </span>
+            </div>
+            <div class="aiwidget__log chat" id="ai-widget-log">
+                <p class="muted" id="ai-widget-empty"><?= e(__('ai.chat_empty')) ?></p>
+            </div>
+            <form class="aiwidget__form" id="ai-widget-form" autocomplete="off">
+                <input name="question" placeholder="<?= e(__('ai.chat_ph')) ?>" required>
+                <button class="btn" type="submit"><?= e(__('ai.send')) ?></button>
+            </form>
+        </div>
+    <?php endif; ?>
+
     <footer class="footer">
         <div class="container footer__inner">
             <span><?= e(__('app.name')) ?> · <?= e(__('home.version')) ?> <?= e(app_version()) ?> · <span class="muted"><?= e(__('privacy.footer')) ?></span></span>
