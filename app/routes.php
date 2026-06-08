@@ -28,6 +28,7 @@ use App\Support\Router;
 return static function (Router $router): void {
     $router->get('/', [HomeController::class, 'index']);
     $router->get('/health', [HomeController::class, 'health']);
+    $router->get('/locale/{lang}', [HomeController::class, 'locale']);
 
     // Autenticació
     $router->get('/login', [AuthController::class, 'showLogin']);

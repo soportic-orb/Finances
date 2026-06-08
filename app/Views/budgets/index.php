@@ -27,7 +27,7 @@ $active = 'budgets';
                             <?php endif; ?>
                         </span>
                         <span class="rowactions">
-                            <form method="post" action="<?= e(url('/budgets/' . $b['id'] . '/delete')) ?>" onsubmit="return confirm('?')">
+                            <form method="post" action="<?= e(url('/budgets/' . $b['id'] . '/delete')) ?>" onsubmit="return confirm('<?= e(__('common.confirm_delete')) ?>')">
                                 <?= csrf_field() ?><button class="linkbtn linkbtn--danger" type="submit"><?= e(__('bud.delete')) ?></button>
                             </form>
                         </span>

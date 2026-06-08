@@ -68,3 +68,8 @@
         <?php endif; ?>
     </section>
 </div>
+
+<section class="card" style="margin-top:1rem">
+    <h2 class="card__subtitle"><?= e(__('privacy.title')) ?></h2>
+    <p class="muted"><?= e(__('privacy.body')) ?></p>
+</section>

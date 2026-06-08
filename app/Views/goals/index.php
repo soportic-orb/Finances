@@ -41,7 +41,7 @@ $monthsTo = static function (?string $date): int {
                             <?php if ($g['account_name']): ?><span class="badge"><?= e($g['account_name']) ?></span><?php endif; ?>
                         </span>
                         <span class="rowactions">
-                            <form method="post" action="<?= e(url('/goals/' . $g['id'] . '/delete')) ?>" onsubmit="return confirm('?')">
+                            <form method="post" action="<?= e(url('/goals/' . $g['id'] . '/delete')) ?>" onsubmit="return confirm('<?= e(__('common.confirm_delete')) ?>')">
                                 <?= csrf_field() ?><button class="linkbtn linkbtn--danger" type="submit"><?= e(__('goal.delete')) ?></button>
                             </form>
                         </span>

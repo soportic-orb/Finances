@@ -26,6 +26,12 @@ return [
     'common.back_home'  => 'Torna a l\'inici',
     'common.save'       => 'Desa',
     'common.cancel'     => 'Cancel·la',
+    'common.confirm_delete' => 'Segur que ho vols eliminar?',
+    'a11y.skip'         => 'Salta al contingut principal',
+    'a11y.nav'          => 'Navegació principal',
+    'privacy.footer'    => 'Privat · autoallotjat',
+    'privacy.title'     => 'Privadesa de la llar',
+    'privacy.body'      => 'Aplicació privada i autoallotjada per a ús familiar. Les dades es queden al teu servidor. Mai s\'envien IBANs, targetes ni noms reals a serveis externs; la capa d\'IA només rep agregats i és opt-in per funció. Les recomanacions de la IA són orientatives.',
     'error.generic'     => 'Hi ha hagut un problema.',
 
     'nav.members'       => 'Membres',

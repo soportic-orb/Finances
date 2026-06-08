@@ -118,16 +118,16 @@ Marca l'estat: ⬜ pendent · 🔄 en curs · ✅ validada.
 
 ---
 
-## Fase 12 — Migració de servidor 🔄
-**Objectiu:** portabilitat. *(Implementada; pendent de validació.)*
+## Fase 12 — Migració de servidor ✅
+**Objectiu:** portabilitat.
 - Export BD + fitxers (inclou `/config/keys`) en **ZIP xifrat** amb manifest + checksums; import des de l'instal·lador.
 
 **Acceptació:** export en un servidor i import net en un altre reprodueix la instància (comptes, vincles EB, settings).
 
 ---
 
-## Fase 13 — Polit ⬜
-**Objectiu:** acabats.
+## Fase 13 — Polit 🔄
+**Objectiu:** acabats. *(Implementada; pendent de validació.)*
 - i18n complet (ca per defecte + es), accessibilitat.
 - README intern (privat, sense orientació open-source), avisos de privacitat de la llar.
 - Revisió de seguretat i de `.gitignore` (secrets/keys exclosos).

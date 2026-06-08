@@ -18,11 +18,12 @@ $u = Auth::user();
     <script defer src="<?= e(asset('js/app.js')) ?>"></script>
 </head>
 <body>
+    <a class="skip-link" href="#main"><?= e(__('a11y.skip')) ?></a>
     <header class="topbar">
         <div class="container topbar__inner">
             <a class="brand" href="<?= e(url('/dashboard')) ?>"><?= e(__('app.name')) ?></a>
             <?php if ($u): ?>
-                <nav class="nav">
+                <nav class="nav" aria-label="<?= e(__('a11y.nav')) ?>">
                     <a href="<?= e(url('/dashboard')) ?>"><?= e(__('nav.dashboard')) ?></a>
                     <a href="<?= e(url('/accounts')) ?>"><?= e(__('nav.accounts')) ?></a>
                     <a href="<?= e(url('/transactions')) ?>"><?= e(__('nav.transactions')) ?></a>
@@ -48,13 +49,17 @@ $u = Auth::user();
         </div>
     </header>
 
-    <main class="container">
+    <main class="container" id="main">
         <?= $content ?>
     </main>
 
     <footer class="footer">
-        <div class="container">
-            <?= e(__('app.name')) ?> · <?= e(__('home.version')) ?> <?= e(app_version()) ?>
+        <div class="container footer__inner">
+            <span><?= e(__('app.name')) ?> · <?= e(__('home.version')) ?> <?= e(app_version()) ?> · <span class="muted"><?= e(__('privacy.footer')) ?></span></span>
+            <span class="langswitch">
+                <a href="<?= e(url('/locale/ca')) ?>" <?= Lang::locale() === 'ca' ? 'aria-current="true"' : '' ?>>CA</a>
+                <a href="<?= e(url('/locale/es')) ?>" <?= Lang::locale() === 'es' ? 'aria-current="true"' : '' ?>>ES</a>
+            </span>
         </div>
     </footer>
 </body>

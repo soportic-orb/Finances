@@ -23,9 +23,12 @@ final class Kernel
         ini_set('error_log', BASE_PATH . '/storage/logs/php-error.log');
 
         date_default_timezone_set((string) Config::get('app.timezone', 'Europe/Madrid'));
-        Lang::setLocale((string) Config::get('app.locale', 'ca'));
 
         self::startSession();
+        // Idioma: preferència de sessió (commutador) o el de configuració.
+        $locale = $_SESSION['locale'] ?? (string) Config::get('app.locale', 'ca');
+        Lang::setLocale($locale);
+
         self::securityHeaders();
         self::registerErrorHandlers($debug);
     }

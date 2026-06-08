@@ -26,6 +26,12 @@ return [
     'common.back_home'  => 'Volver al inicio',
     'common.save'       => 'Guardar',
     'common.cancel'     => 'Cancelar',
+    'common.confirm_delete' => '¿Seguro que quieres eliminarlo?',
+    'a11y.skip'         => 'Saltar al contenido principal',
+    'a11y.nav'          => 'Navegación principal',
+    'privacy.footer'    => 'Privado · autoalojado',
+    'privacy.title'     => 'Privacidad del hogar',
+    'privacy.body'      => 'Aplicación privada y autoalojada para uso familiar. Los datos se quedan en tu servidor. Nunca se envían IBANs, tarjetas ni nombres reales a servicios externos; la capa de IA solo recibe agregados y es opt-in por función. Las recomendaciones de la IA son orientativas.',
     'error.generic'     => 'Ha ocurrido un problema.',
 
     'nav.members'       => 'Miembros',

@@ -128,6 +128,18 @@ main.container { padding-top: 2rem; padding-bottom: 2rem; }
     padding: 1.25rem 0;
     margin-top: 2rem;
 }
+.footer__inner { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.langswitch a { color: var(--muted); text-decoration: none; padding: 0 .25rem; }
+.langswitch a[aria-current="true"] { color: var(--text); font-weight: 700; }
+.langswitch--center { text-align: center; margin-top: 1rem; }
+
+/* Accessibilitat: enllaç de salt */
+.skip-link {
+    position: absolute; left: -999px; top: 0; z-index: 100;
+    background: var(--primary); color: #fff; padding: .5rem .9rem; border-radius: 0 0 8px 0;
+}
+.skip-link:focus { left: 0; }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 
 /* Navegació autenticada */
 .nav { display: flex; align-items: center; gap: 1rem; }

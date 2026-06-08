@@ -20,6 +20,10 @@ use App\Support\Lang;
         <div class="card">
             <?= $content ?>
         </div>
+        <p class="langswitch langswitch--center">
+            <a href="<?= e(url('/locale/ca')) ?>" <?= Lang::locale() === 'ca' ? 'aria-current="true"' : '' ?>>CA</a>
+            <a href="<?= e(url('/locale/es')) ?>" <?= Lang::locale() === 'es' ? 'aria-current="true"' : '' ?>>ES</a>
+        </p>
     </div>
 </body>
 </html>
